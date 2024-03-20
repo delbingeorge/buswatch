@@ -35,9 +35,12 @@ export default function HomeScreen({navigation}) {
           style={styles.NavLogo}
           source={require('../assets/icons/LogoType.png')}
         />
-        {/* <TouchableOpacity onPress={() => navigation.navigate("ProjectPage")}>
-                    <Image style={styles.AboutLogo} source={require("../assets/icons/Star.png")} />
-                </TouchableOpacity> */}
+        <TouchableOpacity onPress={() => navigation.navigate('ProjectPage')}>
+          <Image
+            style={styles.AboutLogo}
+            source={require('../assets/icons/HomeMenu.png')}
+          />
+        </TouchableOpacity>
       </View>
       <View style={styles.RouteList}>
         <Text style={styles.SectionHead}>Select your route</Text>
@@ -47,7 +50,10 @@ export default function HomeScreen({navigation}) {
               key={key}
               style={styles.RouteView}
               onPress={() =>
-                navigation.navigate('DetailsPage', {id: value.id})
+                navigation.navigate('DetailsPage', {
+                  id: value.id,
+                  name: value.SrcDes,
+                })
               }>
               <Image
                 style={styles.RouteLogo}
@@ -118,7 +124,7 @@ const styles = StyleSheet.create({
     rowGap: 15,
     marginBottom: 10,
     columnGap: 15,
-    borderRadius: 5,
+    borderRadius: 10,
     backgroundColor: UiColors.secondary,
   },
   RouteList: {},

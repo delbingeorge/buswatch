@@ -11,12 +11,15 @@ import {
   ScrollViewBase,
 } from 'react-native';
 import UiColors from '../assets/colors';
-import {ScreenStack} from 'react-native-screens';
 
 function DetailsPage({route, navigation}) {
   const {id} = route.params;
 
   let date = new Date();
+  let hours = date.getHours();
+  let mins = date.getMinutes();
+
+  let currentTime = (hours % 12) + ':' + mins;
 
   const busSchedule = [
     [
@@ -654,7 +657,7 @@ function DetailsPage({route, navigation}) {
 
       <View style={styles.ResultView}>
         <Text style={styles.SectionTitle}>Result for</Text>
-        <Text style={styles.SectionHead}>Karkala Bypass - Nitte</Text>
+        <Text style={styles.SectionHead}>{route.params['name']}</Text>
         <View style={styles.BottonInfo}>
           <View style={styles.BusIdentifier}>
             <Image
@@ -689,22 +692,29 @@ function DetailsPage({route, navigation}) {
         <View>
           <Text style={styles.SubHead}>Next bus</Text>
           <View style={styles.RouteView}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Image
-                style={styles.RouteLogo}
-                source={require('../assets/icons/BusExpress.png')}
-              />
+            {busSchedule[id].map(value =>
+              value.Time == '08:30' ? (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}>
+                  <Image
+                    style={styles.RouteLogo}
+                    source={require('../assets/icons/BusExpress.png')}
+                  />
 
-              <View style={styles.RouteText}>
-                <Text style={styles.RouteMainHead}>Bus Name</Text>
-                <Text style={styles.RouteSrcDes}>19:10</Text>
-              </View>
-            </View>
-            {/* <Text style={styles.ReachingTime}>{item.ReachesNitteAt}</Text> */}
+                  <View style={styles.RouteText}>
+                    <Text style={styles.RouteMainHead}>{value.Name}</Text>
+                    <Text style={styles.RouteSrcDes}>
+                      {value.ReachesNitteAt}
+                    </Text>
+                  </View>
+                </View>
+              ) : (
+                ''
+              ),
+            )}
           </View>
         </View>
         <Text style={styles.SubHead}>All buses</Text>
@@ -831,7 +841,7 @@ const styles = StyleSheet.create({
     rowGap: 15,
     marginBottom: 10,
     columnGap: 15,
-    borderRadius: 5,
+    borderRadius: 10,
     backgroundColor: UiColors.secondary,
   },
   ResultView: {marginBottom: 5},

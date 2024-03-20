@@ -11,7 +11,7 @@ function App(): React.JSX.Element {
 
   return (
     <>
-      <StatusBar backgroundColor="#32383d" barStyle="default" />
+      <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
