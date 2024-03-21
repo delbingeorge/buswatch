@@ -27,7 +27,7 @@ function Project({navigation}) {
       </TouchableOpacity>
       <View>
         <Text style={styles.SubHead}>Contribute to database</Text>
-        <View style={styles.RouteView}>
+        <TouchableOpacity style={styles.RouteView}>
           <View
             style={{
               flexDirection: 'row',
@@ -38,16 +38,16 @@ function Project({navigation}) {
               source={require('../assets/icons/EditInfo.png')}
             />
             <View style={styles.RouteText}>
-              <Text style={styles.RouteMainHead}>Add Bus timings</Text>
+              <Text style={styles.RouteMainHead}>Add bus timings</Text>
             </View>
           </View>
-        </View>
+        </TouchableOpacity>
       </View>
 
       <View>
-        <Text style={styles.SubHead}>About the Developer</Text>
+        <Text style={styles.SubHead}>About the developer</Text>
         <View style={styles.RouteView}>
-          <View
+          <TouchableOpacity
             style={{
               flexDirection: 'row',
               alignItems: 'center',
@@ -57,11 +57,42 @@ function Project({navigation}) {
               source={require('../assets/icons/DevMode.png')}
             />
             <View style={styles.RouteText}>
-              <Text style={styles.RouteMainHead}>Developer Info</Text>
+              <Text style={styles.RouteMainHead}>Developer info</Text>
             </View>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
+      <TouchableOpacity style={styles.RouteView}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <Image
+            style={styles.RouteLogo}
+            source={require('../assets/icons/GitStar.png')}
+          />
+          <View style={styles.RouteText}>
+            <Text style={styles.RouteMainHead}>Rate the app</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.RouteView}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <Image
+            style={styles.RouteLogo}
+            source={require('../assets/icons/BugReport.png')}
+          />
+          <View style={styles.RouteText}>
+            <Text style={styles.RouteMainHead}>Report a bug</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+
       <View
         style={{
           alignItems: 'center',
@@ -71,8 +102,8 @@ function Project({navigation}) {
           marginBottom: 10,
           bottom: 0,
         }}>
-        <Text>Bus Watch</Text>
-        <Text>Dev Version 1.0</Text>
+        <Text style={{color: UiColors.dark}}>Bus Watch</Text>
+        <Text style={{color: UiColors.dark}}>Dev Version 1.0</Text>
       </View>
     </SafeAreaView>
   );
