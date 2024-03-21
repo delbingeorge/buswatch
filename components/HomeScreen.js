@@ -5,12 +5,20 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
 import UiColors from '../assets/colors';
+import {useState} from 'react';
 
 export default function HomeScreen({navigation}) {
+  // const [search, setSearch] = useState('');
+
+  // const handleSearchText = text => {
+  //   setSearch(text);
+  // };
+
   const RouteListInfo = [
     {
       id: 0,
@@ -28,6 +36,18 @@ export default function HomeScreen({navigation}) {
       BusRoute: 'Udupi - Mangalore',
     },
   ];
+
+  // const handleSearch = () => {
+  //   RouteListInfo.map(value => {
+  //     if (value.BusRoute.includes(search)) {
+  //       console.log(true);
+  //       console.log(search);
+  //     } else {
+  //       console.log(false);
+  //     }
+  //   });
+  // };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.NavView}>
@@ -43,6 +63,22 @@ export default function HomeScreen({navigation}) {
         </TouchableOpacity>
       </View>
       <View style={styles.RouteList}>
+        {/* <View style={{marginBottom: 10}}>
+          <TextInput
+            style={{
+              backgroundColor: UiColors.secondary,
+              fontSize: 18,
+              fontWeight: '600',
+              paddingVertical: 16,
+              borderRadius: 8,
+              paddingHorizontal: 15,
+            }}
+            onChangeText={handleSearchText}
+            value={search}
+            onSubmitEditing={handleSearch}
+            placeholder="Search the place"></TextInput>
+        </View> */}
+
         <Text style={styles.SectionHead}>Select your route</Text>
         <ScrollView style={styles.RouteScrollView}>
           {RouteListInfo.map((value, key) => (
@@ -97,7 +133,7 @@ const styles = StyleSheet.create({
   },
   SectionHead: {
     color: UiColors.dark,
-    fontSize: 22,
+    fontSize: 19,
     fontWeight: '600',
     marginBottom: 10,
   },
@@ -113,7 +149,7 @@ const styles = StyleSheet.create({
   RouteMainHead: {
     color: UiColors.dark,
     fontWeight: '700',
-    fontSize: 20,
+    fontSize: 19,
   },
   RouteSrcDes: {color: UiColors.dark, fontWeight: '400', fontSize: 15},
   RouteView: {

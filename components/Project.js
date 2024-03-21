@@ -48,11 +48,12 @@ function Project({navigation}) {
 
       <View>
         <Text style={styles.SubHead}>About the app</Text>
-        <View style={styles.RouteView}>
-          <TouchableOpacity
-            onPress={() => {
-              Linking.openURL('https://delb.in/');
-            }}
+        <TouchableOpacity
+          style={styles.RouteView}
+          onPress={() => {
+            Linking.openURL('https://delb.in/');
+          }}>
+          <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
@@ -64,8 +65,8 @@ function Project({navigation}) {
             <View style={styles.RouteText}>
               <Text style={styles.RouteMainHead}>Developer info</Text>
             </View>
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
       </View>
       <TouchableOpacity
         onPress={() => {
