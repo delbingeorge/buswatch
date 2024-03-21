@@ -7,8 +7,6 @@ import {
   TouchableOpacity,
   SafeAreaView,
   FlatList,
-  ScrollView,
-  ScrollViewBase,
 } from 'react-native';
 import UiColors from '../assets/colors';
 
@@ -58,6 +56,7 @@ const busSchedule = [
       ReachesNitteAt: '11:10',
     },
   ],
+
   [
     {
       Time: '08:00',
@@ -648,7 +647,6 @@ function DetailsPage({route, navigation}) {
   let mins = date.getMinutes();
 
   let currentTime = (hours % 12) + ':' + mins;
-  // console.log(currentTime);  
 
   const nextBus = getNextBus(currentTime);
 
@@ -657,20 +655,15 @@ function DetailsPage({route, navigation}) {
       <TouchableOpacity
         style={styles.GoBack}
         onPress={() => navigation.navigate('HomeScreen')}>
-        {/* <Image source={require('../assets/icons/GoBack.png')} /> */}
         <Image
           style={styles.GoBackImg}
           source={require('../assets/icons/GoBack.png')}
         />
-        <Image
-          style={styles.NavLogo}
-          source={require('../assets/icons/LogoType.png')}
-        />
+        <Text style={styles.SectionHead}>{route.params['name']}</Text>
+        {/* <Text style={styles.SectionTitle}>Result for</Text> */}
       </TouchableOpacity>
 
       <View style={styles.ResultView}>
-        <Text style={styles.SectionTitle}>Result for</Text>
-        <Text style={styles.SectionHead}>{route.params['name']}</Text>
         <View style={styles.BottonInfo}>
           <View style={styles.BusIdentifier}>
             <Image
@@ -701,85 +694,80 @@ function DetailsPage({route, navigation}) {
               color: UiColors.dark,
               paddingVertical: 5,
             }}>
-            NB: Some external factors can affect the timings of the bus.
+            NB: Some external factors can affect the timings {'\n'} of the bus.
           </Text>
         </View>
       </View>
 
       <View>
-        <View>
-          <Text style={styles.SubHead}>Next bus</Text>
-          <View style={styles.RouteView}>
-            {nextBus ? (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
-                <Image
-                  style={styles.RouteLogo}
-                  source={require('../assets/icons/BusExpress.png')}
-                />
+        <Text style={styles.SubHead}>Next bus</Text>
+        <View style={styles.RouteView}>
+          {nextBus ? (
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Image
+                style={styles.RouteLogo}
+                source={require('../assets/icons/BusExpress.png')}
+              />
+              <View style={styles.RouteText}>
+                <Text style={styles.RouteMainHead}>{nextBus.Name}</Text>
+                <Text style={styles.RouteSrcDes}>{nextBus.ReachesNitteAt}</Text>
+              </View>
+            </View>
+          ) : (
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Image
+                style={styles.RouteLogo}
+                source={require('../assets/icons/BusExpress.png')}
+              />
 
-                <View style={styles.RouteText}>
-                  <Text style={styles.RouteMainHead}>{nextBus.Name}</Text>
-                  <Text style={styles.RouteSrcDes}>
-                    {nextBus.ReachesNitteAt}
-                  </Text>
-                </View>
+              <View style={styles.RouteText}>
+                <Text style={styles.RouteMainHead}>No Bus Found!</Text>
+                {/* <Text style={styles.RouteSrcDes}>{value.ReachesNitteAt}</Text> */}
               </View>
-            ) : (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
-                <Image
-                  style={styles.RouteLogo}
-                  source={require('../assets/icons/BusExpress.png')}
-                />
-
-                <View style={styles.RouteText}>
-                  <Text style={styles.RouteMainHead}>No Bus Found!</Text>
-                  {/* <Text style={styles.RouteSrcDes}>{value.ReachesNitteAt}</Text> */}
-                </View>
-              </View>
-            )}
-          </View>
-        </View>
-        <Text style={styles.SubHead}>All buses</Text>
-        <FlatList
-          style={{height: 495}}
-          showsVerticalScrollIndicator={false}
-          data={busSchedule[id]}
-          renderItem={({item, key}) => (
-            <View key={key} style={styles.RouteView}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
-                {item.Type == 'Express' ? (
-                  <Image
-                    style={styles.RouteLogo}
-                    source={require('../assets/icons/BusExpress.png')}
-                  />
-                ) : (
-                  <Image
-                    style={styles.RouteLogo}
-                    source={require('../assets/icons/BusLocal.png')}
-                  />
-                )}
-                <View style={styles.RouteText}>
-                  <Text style={styles.RouteMainHead}>{item.Name}</Text>
-                  <Text style={styles.RouteSrcDes}>{item.Time}</Text>
-                </View>
-              </View>
-              {/* <Text style={styles.ReachingTime}>{item.ReachesNitteAt}</Text> */}
             </View>
           )}
-        />
+        </View>
       </View>
+
+      <Text style={styles.SubHead}>All buses</Text>
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        data={busSchedule[id]}
+        style={styles.FlatListStyle}
+        renderItem={({item, key}) => (
+          <View key={key} style={styles.RouteView}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              {item.Type == 'Express' ? (
+                <Image
+                  style={styles.RouteLogo}
+                  source={require('../assets/icons/BusExpress.png')}
+                />
+              ) : (
+                <Image
+                  style={styles.RouteLogo}
+                  source={require('../assets/icons/BusLocal.png')}
+                />
+              )}
+              <View style={styles.RouteText}>
+                <Text style={styles.RouteMainHead}>{item.Name}</Text>
+                <Text style={styles.RouteSrcDes}>{item.Time}</Text>
+              </View>
+            </View>
+          </View>
+        )}
+      />
     </SafeAreaView>
   );
 }
@@ -789,7 +777,7 @@ const styles = StyleSheet.create({
   BottonInfo: {
     paddingVertical: 5,
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-evenly',
     columnGap: 30,
   },
   RouteLogoImg: {width: 25, marginRight: 10, height: 25, objectFit: 'contain'},
@@ -875,7 +863,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: UiColors.secondary,
   },
-  ResultView: {marginBottom: 5},
+  ResultView: {margin: 5},
   SectionTitle: {
     fontSize: 18,
     color: UiColors.dark,
