@@ -9,30 +9,635 @@ import {
   FlatList,
 } from 'react-native';
 import UiColors from '../assets/colors';
-import {useEffect, useState} from 'react';
-import axios from 'axios';
 
 function DetailsPage({route, navigation}) {
   const {id} = route.params;
-  const [busSchedule, setData] = useState([]);
+  const {fullValue} = route.params;
+
+  // console.log(fullValue);
 
   let date = new Date();
   let hours = date.getHours();
   let mins = date.getMinutes();
 
-  useEffect(() => {
-    axios
-      .get(
-        'https://raw.githubusercontent.com/dllbn/bswtch/main/data-bswtch.json',
-      )
-      .then(response => {
-        setData(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-  }, []);
+  // const busSchedule = [
+  //   [
+  //     {
+  //       Time: '07:41',
+  //       Name: 'Rajarajeshwari',
+  //       Type: 'Express',
+  //       ReachesNitteAt: '07:50',
+  //     },
+  //     {Time: '07:45', Name: 'Kanthi', Type: 'Local', ReachesNitteAt: '07:59'},
+  //     {Time: '07:50', Name: 'Vishal', Type: 'Express', ReachesNitteAt: '07:59'},
+  //     {Time: '07:52', Name: 'Mercy', Type: 'Local', ReachesNitteAt: '08:07'},
+  //     {Time: '07:58', Name: 'Naveen', Type: 'Local', ReachesNitteAt: '08:12'},
+  //     {Time: '08:00', Name: 'Vishal', Type: 'Express', ReachesNitteAt: '08:10'},
+  //     {Time: '08:05', Name: 'Ayra', Type: 'Express', ReachesNitteAt: '08:15'},
+  //     {Time: '08:05', Name: 'Shahil', Type: 'Local', ReachesNitteAt: '08:19'},
+  //     {Time: '08:15', Name: 'Vishal', Type: 'Express', ReachesNitteAt: '08:25'},
+  //     {Time: '08:25', Name: 'Reshma', Type: 'Express', ReachesNitteAt: '08:35'},
+  //     {Time: '08:30', Name: 'Sangam', Type: 'Local', ReachesNitteAt: '08:45'},
+  //     {
+  //       Time: '08:35',
+  //       Name: 'Vishal ',
+  //       Type: 'Express',
+  //       ReachesNitteAt: '08:47',
+  //     },
+  //     {Time: '08:48', Name: 'Vishal', Type: 'Express', ReachesNitteAt: '09:02'},
+  //     {
+  //       Time: '08:59',
+  //       Name: 'Annapoorneshwari',
+  //       Type: 'Express',
+  //       ReachesNitteAt: '09:10',
+  //     },
+  //     {Time: '09:00', Name: 'Jeevan', Type: 'Local', ReachesNitteAt: '09:15'},
+  //     {Time: '09:05', Name: 'Mercy', Type: 'Local', ReachesNitteAt: '09:21'},
+  //     {
+  //       Time: '09:10',
+  //       Name: 'Navadurga Prasad',
+  //       Type: 'Express',
+  //       ReachesNitteAt: '09:19',
+  //     },
+  //     {
+  //       Time: '11:01',
+  //       Name: 'Padmambika',
+  //       Type: 'Express',
+  //       ReachesNitteAt: '11:10',
+  //     },
+  //   ],
 
+  //   [
+  //     {
+  //       Time: '08:00',
+  //       Name: 'Vishal',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '08:10',
+  //       Name: 'Vishal',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {Time: '08:45', Name: 'Sangam', type: 'Local', destination: 'Padubidri'},
+  //     {
+  //       Time: '08:46',
+  //       Name: 'Vishal',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {Time: '09:20', Name: 'Mercy', type: 'Local', destination: 'Mangalore'},
+  //     {
+  //       Time: '09:20',
+  //       Name: 'Navadurga Prasad',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '09:30',
+  //       Name: 'Navadurga Prasad',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '09:45',
+  //       Name: 'Vishal',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '09:54',
+  //       Name: 'Christa Jyothi',
+  //       type: 'Local',
+  //       destination: 'Udupi',
+  //     },
+  //     {
+  //       Time: '09:58',
+  //       Name: 'Vishal',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {Time: '09:59', Name: 'Decent', type: 'Local', destination: 'Udupi'},
+  //     {
+  //       Time: '10:05',
+  //       Name: 'Laxmi Ganesh',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {Time: '10:11', Name: 'Sangam', type: 'Local', destination: 'Padubidri'},
+  //     {Time: '10:18', Name: 'Pranam', type: 'Local', destination: 'Kateel'},
+  //     {
+  //       Time: '10:23',
+  //       Name: 'Christa Jyothi',
+  //       type: 'Local',
+  //       destination: 'Udupi',
+  //     },
+  //     {
+  //       Time: '10:26',
+  //       Name: 'Reshma',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '10:36',
+  //       Name: 'Sangam',
+  //       type: 'Fast Service - Local',
+  //       destination: 'Udupi',
+  //     },
+  //     {
+  //       Time: '10:50',
+  //       Name: 'Padmambikaa',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {Time: '11:08', Name: 'Pranam', type: 'Local', destination: 'Kateel'},
+  //     {
+  //       Time: '11:10',
+  //       Name: 'Padmambikaa',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '11:20',
+  //       Name: 'Christa Kiran',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {Time: '11:26', Name: 'Naveen', type: 'Local', destination: 'Udupi'},
+  //     {Time: '11:28', Name: 'Naveen', type: 'Local', destination: 'Udupi'},
+  //     {
+  //       Time: '11:29',
+  //       Name: 'Vishal',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {Time: '11:33', Name: 'Naveen', type: 'Local', destination: 'Udupi'},
+  //     {Time: '11:36', Name: 'Jason', type: 'Local', destination: 'Mulki'},
+  //     {
+  //       Time: '11:40',
+  //       Name: 'Vishal',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '11:44',
+  //       Name: 'Rashmi Travels',
+  //       type: 'Local',
+  //       destination: 'Udupi via Kapu',
+  //     },
+  //     {
+  //       Time: '11:51',
+  //       Name: 'Padmambikaa',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '12:00',
+  //       Name: 'Navadurga Prasad',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '12:09',
+  //       Name: 'Rajarajeshwari',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '12:09',
+  //       Name: 'Shree Annapoorneshwari',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {Time: '12:11', Name: 'Srilaxmi', type: 'Local', destination: 'Kateel'},
+  //     {Time: '12:18', Name: 'Naveen', type: 'Local', destination: 'Udupi'},
+  //     {
+  //       Time: '12:25',
+  //       Name: 'Vishal',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '12:33',
+  //       Name: 'Navadurga Prasad',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '12:35',
+  //       Name: 'Vishal',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '12:38',
+  //       Name: 'Shree Padma',
+  //       type: 'Fast Service - Local',
+  //       destination: 'Udupi',
+  //     },
+  //     {
+  //       Time: '12:45',
+  //       Name: 'Padmambikaa',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '12:52',
+  //       Name: 'Shahil',
+  //       type: 'Local',
+  //       destination: 'Udupi via Padubidri',
+  //     },
+  //     {
+  //       Time: '12:56',
+  //       Name: 'Rajarajeshwari',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '01:07',
+  //       Name: 'Christa Jyothi',
+  //       type: 'Local',
+  //       destination: 'Udupi',
+  //     },
+  //     {
+  //       Time: '01:10',
+  //       Name: 'Navadurga Prasad',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '01:21',
+  //       Name: 'Vishal',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {Time: '01:30', Name: 'Kanthi', type: 'Local', destination: 'Udupi'},
+  //     {
+  //       Time: '01:32',
+  //       Name: 'Vishal',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {Time: '01:43', Name: 'Kanthi', type: 'Local', destination: 'Udupi'},
+  //     {Time: '01:50', Name: 'Bharathi', type: 'Local', destination: 'Udupi'},
+  //     {
+  //       Time: '01:59',
+  //       Name: 'Laxmi Ganesh',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '02:00',
+  //       Name: 'Vishal',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {Time: '02:07', Name: 'Sangam', type: 'Local', destination: 'Mulki'},
+  //     {Time: '02:10', Name: 'Sangam', type: 'Local', destination: 'Udupi'},
+  //     {
+  //       Time: '02:15',
+  //       Name: 'Laxmi Ganesh',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {Time: '02:34', Name: 'Pranam', type: 'Local', destination: 'Kateel'},
+  //     {
+  //       Time: '02:37',
+  //       Name: 'Padmambikaa',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '02:44',
+  //       Name: 'Navadurga Prasad',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {Time: '02:55', Name: 'Pranam', type: 'Local', destination: 'Kateel'},
+  //     {
+  //       Time: '02:57',
+  //       Name: 'Padmambikaa',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '03:05',
+  //       Name: 'Reshma',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '03:12',
+  //       Name: 'Christa Jyothi',
+  //       type: 'Local',
+  //       destination: 'Udupi',
+  //     },
+  //     {Time: '03:16', Name: 'Star', type: 'Local', destination: 'Udupi'},
+  //     {
+  //       Time: '03:20',
+  //       Name: 'Vishal',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {Time: '03:31', Name: 'Naveen', type: 'Local', destination: 'Udupi'},
+  //     {
+  //       Time: '03:33',
+  //       Name: 'Vishal',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '03:43',
+  //       Name: 'Sangam',
+  //       type: 'Fast Service - Local',
+  //       destination: 'Padubidri',
+  //     },
+  //     {Time: '03:45', Name: 'Naveen', type: 'Local', destination: 'Udupi'},
+  //     {
+  //       Time: '03:48',
+  //       Name: 'Vishal',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {Time: '03:54', Name: 'Naveen', type: 'Local', destination: 'Udupi'},
+  //     {
+  //       Time: '03:59',
+  //       Name: 'Padmambikaa',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {Time: '04:10', Name: 'Ayra', type: 'Express', destination: 'Mangalore'},
+  //     {
+  //       Time: '04:19',
+  //       Name: 'Vishal',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {Time: '04:25', Name: 'Naveen', type: 'Local', destination: 'Udupi'},
+  //     {
+  //       Time: '04:29',
+  //       Name: 'Vishal',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '04:30',
+  //       Name: 'Bharathi',
+  //       type: 'Express',
+  //       destination: 'Padubidri',
+  //     },
+  //     {
+  //       Time: '04:35',
+  //       Name: 'Sai Ram',
+  //       type: 'Fast Service - Local',
+  //       destination: 'Padubidri',
+  //     },
+  //     {
+  //       Time: '04:41',
+  //       Name: 'Vishal',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '04:49',
+  //       Name: 'Shree Padma',
+  //       type: 'Local',
+  //       destination: 'Udupi via Kapu',
+  //     },
+  //     {
+  //       Time: '04:56',
+  //       Name: 'Vishal',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {Time: '05:02', Name: 'Mercy', type: 'Local', destination: 'Mangalore'},
+  //     {
+  //       Time: '05:07',
+  //       Name: 'Navadurga Prasad',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '05:20',
+  //       Name: 'Vishal',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {Time: '05:21', Name: 'Shree Padma', type: 'Local', destination: 'Udupi'},
+  //     {
+  //       Time: '05:22',
+  //       Name: 'Navadurga Prasad',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '05:38',
+  //       Name: 'Vishal',
+  //       type: 'Express',
+  //       destination: 'Mangalore',
+  //     },
+  //   ],
+  //   [
+  //     {Time: '07:30', Name: 'Vishal', type: 'Express', source: 'Mangalore'},
+  //     {Time: '07:32', Name: 'Reshma', type: 'Hybrid', source: 'Udupi'},
+  //     {
+  //       Time: '07:35',
+  //       Name: 'Navadurga Prasad',
+  //       type: 'Express',
+  //       source: 'Shivmogga',
+  //     },
+  //     {Time: '07:51', Name: 'Srilaxmi', type: 'Local', source: 'Kateel'},
+  //     {Time: '08:03', Name: 'Kusuma', type: 'Express', source: 'Mangalore'},
+  //     {Time: '08:08', Name: 'Milan', type: 'Local', source: 'Udupi'},
+  //     {Time: '08:10', Name: 'Vishal', type: 'Express', source: 'Mangalore'},
+  //     {Time: '08:22', Name: 'Mercy', type: 'Local', source: 'Mangalore'},
+  //     {
+  //       Time: '08:36',
+  //       Name: 'Navadurga Prasad',
+  //       type: 'Express',
+  //       source: 'Mangalore',
+  //     },
+  //     {Time: '08:37', Name: 'Keerthi', type: 'Local', source: 'Udupi'},
+  //     {
+  //       Time: '08:41',
+  //       Name: 'Navadurga Prasad',
+  //       type: 'Express',
+  //       source: 'Mangalore',
+  //     },
+  //     {Time: '09:17', Name: 'Sangam', type: 'Local', source: 'Udupi'},
+  //     {
+  //       Time: '09:20',
+  //       Name: 'Laxmi Ganesh',
+  //       type: 'Express',
+  //       source: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '09:49',
+  //       Name: 'Padmambikaa',
+  //       type: 'Express',
+  //       source: 'Mangalore',
+  //     },
+  //     {Time: '09:51', Name: 'Naveen', type: 'Local', source: 'Udupi'},
+  //     {Time: '09:56', Name: 'Naveen', type: 'Local', source: 'Udupi'},
+  //     {Time: '10:08', Name: 'P.M Travels', type: 'Local', source: 'Udupi'},
+  //     {
+  //       Time: '10:17',
+  //       Name: 'Padmambikaa',
+  //       type: 'Express',
+  //       source: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '10:28',
+  //       Name: 'Padmambikaa',
+  //       type: 'Express, UC',
+  //       source: 'Mangalore',
+  //     },
+  //     {Time: '10:30', Name: 'Jeevan', type: 'Local, UC', source: 'Manchakal'},
+  //     {
+  //       Time: '10:55',
+  //       Name: 'Shree Padma',
+  //       type: 'Local, UC',
+  //       source: 'Udupi via Kapu',
+  //     },
+  //     {
+  //       Time: '11:01',
+  //       Name: 'Padmambikaa',
+  //       type: 'Express, UC',
+  //       source: 'Mangalore',
+  //     },
+  //     {Time: '11:17', Name: 'Naveen', type: 'Local, UC', source: 'Udupi'},
+  //     {Time: '11:33', Name: 'Vishal', type: 'Express', source: 'Mangalore'},
+  //     {Time: '11:39', Name: 'Kanthi', type: 'Local', source: 'Udupi'},
+  //     {Time: '11:51', Name: 'Kanthi', type: 'Local', source: 'Udupi'},
+  //     {
+  //       Time: '12:03',
+  //       Name: 'Shahil',
+  //       type: 'Local',
+  //       source: 'Udupi via Padubidri',
+  //     },
+  //     {Time: '12:05', Name: 'Vishal', type: 'Express', source: 'Mangalore'},
+  //     {Time: '12:11', Name: 'Vishal', type: 'Express', source: 'Mangalore'},
+  //     {Time: '12:11', Name: 'Christa Jyothi', type: 'Local', source: 'Udupi'},
+  //     {Time: '12:14', Name: 'Nandini', type: 'Local', source: 'Mangalore'},
+  //     {Time: '12:16', Name: 'Vishal', type: 'Express', source: 'Mangalore'},
+  //     {
+  //       Time: '12:24',
+  //       Name: 'Navadurga Prasad',
+  //       type: 'Express',
+  //       source: 'Mangalore',
+  //     },
+  //     {Time: '12:36', Name: 'Vishal', type: 'Express, UC', source: 'Mangalore'},
+  //     {Time: '12:43', Name: 'Sangam', type: 'Local', source: 'Mulki'},
+  //     {Time: '12:44', Name: 'Bharathi', type: 'Express', source: 'Padubidri'},
+  //     {Time: '12:50', Name: 'Bharathi', type: 'Express', source: 'Udupi'},
+  //     {
+  //       Time: '12:52',
+  //       Name: 'Navadurga Prasad',
+  //       type: 'Express',
+  //       source: 'Mangalore',
+  //     },
+  //     {Time: '01:03', Name: 'Vishal', type: 'Express', source: 'Mangalore'},
+  //     {Time: '01:10', Name: 'Milan', type: 'Local', source: 'Udupi'},
+  //     {Time: '01:16', Name: 'Sangam', type: 'Local', source: 'Udupi'},
+  //     {
+  //       Time: '01:20',
+  //       Name: 'Keerthi',
+  //       type: 'Fast Service - Local',
+  //       source: 'Udupi',
+  //     },
+  //     {
+  //       Time: '01:23',
+  //       Name: 'Laxmi Ganesh',
+  //       type: 'Express',
+  //       source: 'Mangalore',
+  //     },
+  //     {Time: '01:35', Name: 'Reshma', type: 'Express', source: 'Mangalore'},
+  //     {Time: '01:43', Name: 'Christa Jyothi', type: 'Local', source: 'Udupi'},
+  //     {
+  //       Time: '01:49',
+  //       Name: 'Padmambikaa',
+  //       type: 'Express',
+  //       source: 'Mangalore',
+  //     },
+  //     {Time: '02:06', Name: 'Pranam', type: 'Local', source: 'Kateel'},
+  //     {
+  //       Time: '02:08',
+  //       Name: 'Padmambikaa',
+  //       type: 'Express, UC',
+  //       source: 'Mangalore',
+  //     },
+  //     {Time: '02:15', Name: 'Sangam', type: 'Local', source: 'Udupi'},
+  //     {Time: '02:25', Name: 'Rashmi Travels', type: 'Local', source: 'Kateel'},
+  //     {Time: '02:36', Name: 'Naveen', type: 'Local', source: 'Udupi'},
+  //     {Time: '02:38', Name: 'Vishal', type: 'Express, UC', source: 'Mangalore'},
+  //     {
+  //       Time: '02:51',
+  //       Name: 'Padmambikaa',
+  //       type: 'Express',
+  //       source: 'Mangalore',
+  //     },
+  //     {
+  //       Time: '02:52',
+  //       Name: 'Christa Kiran',
+  //       type: 'Express',
+  //       source: 'Mangalore',
+  //     },
+  //     {Time: '03:06', Name: 'Naveen', type: 'Local', source: 'Udupi'},
+  //     {
+  //       Time: '03:09',
+  //       Name: 'Padmambikaa',
+  //       type: 'Express',
+  //       source: 'Mangalore',
+  //     },
+  //     {Time: '03:23', Name: 'Naveen', type: 'Local', source: 'Udupi'},
+  //     {Time: '03:25', Name: 'Vishal', type: 'Express', source: 'Mangalore'},
+  //     {Time: '03:28', Name: 'Ayra', type: 'Express', source: 'Mangalore'},
+  //     {
+  //       Time: '03:32',
+  //       Name: 'Shree Padma',
+  //       type: 'Local, UC',
+  //       source: 'Udupi via Kapu',
+  //     },
+  //     {Time: '03:40', Name: 'Sangam', type: 'Local', source: 'Udupi'},
+  //     {Time: '03:43', Name: 'Vishal', type: 'Express, UC', source: 'Mangalore'},
+  //     {
+  //       Time: '03:55',
+  //       Name: 'Shree Annapoorneshwari',
+  //       type: 'Express',
+  //       source: 'Mangalore',
+  //     },
+  //     {Time: '04:08', Name: 'Mercy', type: 'Express', source: 'Mangalore'},
+  //     {
+  //       Time: '04:12',
+  //       Name: 'Navadurga Prasad',
+  //       type: 'Express',
+  //       source: 'Mangalore',
+  //     },
+  //     {Time: '04:21', Name: 'Kanthi', type: 'Local', source: 'Udupi'},
+  //     {Time: '04:26', Name: 'Vishal', type: 'Express', source: 'Mangalore'},
+  //     {Time: '04:40', Name: 'Vishal', type: 'Express', source: 'Mangalore'},
+  //     {Time: '04:44', Name: 'Sangam', type: 'Local', source: 'Udupi'},
+  //     {Time: '04:46', Name: 'Vishal', type: 'Express', source: 'Mangalore'},
+  //     {Time: '04:58', Name: 'Bharathi', type: 'Express', source: 'Udupi'},
+  //     {Time: '04:59', Name: 'Vishal', type: 'Express', source: 'Mangalore'},
+  //     {Time: '05:07', Name: 'Pranam', type: 'Local', source: 'Kateel'},
+  //     {Time: '05:40', Name: 'Sangam', type: 'Local, UC', source: 'Udupi'},
+  //     {
+  //       Time: '05:39',
+  //       Name: 'Rajarajeshwari',
+  //       type: 'Express, UC',
+  //       source: 'Mangalore',
+  //     },
+  //     {Time: '05:49', Name: 'Keerthi', type: 'Local, UC', source: 'Udupi'},
+  //     {
+  //       Time: '05:51',
+  //       Name: 'Laxmi Ganesh',
+  //       type: 'Express, UC',
+  //       source: 'Mangalore',
+  //     },
+  //   ],
+  // ];
 
   const nextBus = false;
 
@@ -84,52 +689,13 @@ function DetailsPage({route, navigation}) {
           </Text>
         </View>
       </View>
-
-      <View>
-        <Text style={styles.SubHead}>Next bus</Text>
-        <View style={styles.RouteView}>
-          {nextBus ? (
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Image
-                style={styles.RouteLogo}
-                source={require('../assets/icons/BusExpress.png')}
-              />
-              <View style={styles.RouteText}>
-                <Text style={styles.RouteMainHead}>{nextBus.Name}</Text>
-                <Text style={styles.RouteSrcDes}>{nextBus.ReachesNitteAt}</Text>
-              </View>
-            </View>
-          ) : (
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              {/* <Image
-                style={styles.RouteLogo}
-                source={require('../assets/icons/BusExpress.png')}
-              /> */}
-
-              {/* <View style={styles.RouteText}> */}
-              {/* <Text style={styles.RouteMainHead}>Coming Soon!</Text> */}
-              <Text style={{color: UiColors.dark}}>
-                This feature is get to develop.
-              </Text>
-              {/* </View> */}
-            </View>
-          )}
-        </View>
-      </View>
-
-      <Text style={styles.SubHead}>All buses</Text>
+      
+      <Text style={styles.SubHead}>
+        All buses -{fullValue['BusDetails'].length} results
+      </Text>
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={busSchedule[id]}
+        data={fullValue['BusDetails']}
         style={styles.FlatListStyle}
         renderItem={({item, key}) => (
           <View key={key} style={styles.RouteView}>

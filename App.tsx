@@ -4,7 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DetailsPage from './components/DetailsPage';
 import Project from './components/Project';
-import {StatusBar} from 'react-native';
+import {StatusBar, View} from 'react-native';
 
 function App(): React.JSX.Element {
   const Stack = createNativeStackNavigator();

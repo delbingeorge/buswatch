@@ -10,32 +10,31 @@ import {
   View,
 } from 'react-native';
 import UiColors from '../assets/colors';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 export default function HomeScreen({navigation}) {
+  const [data, setData] = useState([]);
   // const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          'https://raw.githubusercontent.com/dllbn/bswtch/main/data-bswtch.json',
+        );
+        const jsonData = await response.json();
+        setData(jsonData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
 
   // const handleSearchText = text => {
   //   setSearch(text);
   // };
-
-  const RouteListInfo = [
-    {
-      id: 0,
-      SrcDes: 'Karkala Bypass - Nitte',
-      BusRoute: 'Karkala - Mangalore',
-    },
-    {
-      id: 1,
-      SrcDes: 'Nitte - Belman - Padubidri',
-      BusRoute: 'Udupi - Mangalore',
-    },
-    {
-      id: 2,
-      SrcDes: 'Nitte - Karkala',
-      BusRoute: 'Udupi - Mangalore',
-    },
-  ];
 
   // const handleSearch = () => {
   //   RouteListInfo.map(value => {
@@ -81,7 +80,7 @@ export default function HomeScreen({navigation}) {
 
         <Text style={styles.SectionHead}>Select your route</Text>
         <ScrollView style={styles.RouteScrollView}>
-          {RouteListInfo.map((value, key) => (
+          {data.map((value, key) => (
             <TouchableOpacity
               key={key}
               style={styles.RouteView}
@@ -89,6 +88,7 @@ export default function HomeScreen({navigation}) {
                 navigation.navigate('DetailsPage', {
                   id: value.id,
                   name: value.SrcDes,
+                  fullValue: value,
                 })
               }>
               <Image
