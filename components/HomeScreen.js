@@ -31,7 +31,6 @@ export default function HomeScreen({navigation}) {
     fetchData();
   }, []);
 
-
   // const handleSearchText = text => {
   //   setSearch(text);
   // };
@@ -61,7 +60,8 @@ export default function HomeScreen({navigation}) {
           />
         </TouchableOpacity>
       </View>
-      <View style={styles.RouteList}>
+      <View>
+
         {/* <View style={{marginBottom: 10}}>
           <TextInput
             style={{
@@ -79,7 +79,7 @@ export default function HomeScreen({navigation}) {
         </View> */}
 
         <Text style={styles.SectionHead}>Select your route</Text>
-        <ScrollView style={styles.RouteScrollView}>
+        <ScrollView>
           {data.map((value, key) => (
             <TouchableOpacity
               key={key}
@@ -132,26 +132,29 @@ const styles = StyleSheet.create({
     objectFit: 'contain',
   },
   SectionHead: {
+    fontFamily: 'HelveticaNowDisplay-Bold',
     color: UiColors.dark,
-    fontSize: 19,
-    fontWeight: '600',
+    fontSize: 20,
     marginBottom: 10,
   },
-  RouteScrollView: {},
   RouteLogo: {
     width: 35,
     height: 35,
     objectFit: 'contain',
   },
   RouteText: {
-    rowGap: 4,
+    rowGap: -1,
   },
   RouteMainHead: {
     color: UiColors.dark,
-    fontWeight: '700',
-    fontSize: 19,
+    fontFamily: 'HelveticaNowDisplay-Bold',
+    fontSize: 20,
   },
-  RouteSrcDes: {color: UiColors.dark, fontWeight: '400', fontSize: 15},
+  RouteSrcDes: {
+    color: UiColors.dark,
+    fontFamily: 'HelveticaNowDisplay-Medium',
+    fontSize: 17,
+  },
   RouteView: {
     flexDirection: 'row',
     width: Dimensions.get('window').width - 20,
@@ -163,5 +166,4 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: UiColors.secondary,
   },
-  RouteList: {},
 });

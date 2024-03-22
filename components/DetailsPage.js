@@ -4,36 +4,41 @@ import {
   Dimensions,
   View,
   Image,
-  TouchableOpacity,
   SafeAreaView,
   FlatList,
+  Pressable,
 } from 'react-native';
 import UiColors from '../assets/colors';
 
 function DetailsPage({route, navigation}) {
   const {fullValue} = route.params;
 
-  let date = new Date();
-  let hours = date.getHours();
-  let mins = date.getMinutes();
+  const now = new Date();
+  let hours = now.getHours();
+  let minutes = now.getMinutes();
 
-  let currentTime = hours + ':' + mins;
+  // Add leading zeros if needed
+  hours = (hours < 10 ? '0' : '') + hours;
+  minutes = (minutes < 10 ? '0' : '') + minutes;
 
+  const currentTime = `${hours}:${minutes}`;
+  // let currentTime = hours + ':' + mins;
+  // let currentTime = '07:52';
   console.log(currentTime);
 
   let nextBus = getNextBus();
-  // console.log(nextBus);
+  console.log(nextBus);
+
   function getNextBus() {
     for (let i = 0; i < fullValue['BusDetails'].length; i++) {
-      if (fullValue['BusDetails'][i].Time > currentTime) {
+      if (fullValue['BusDetails'][i].Time > currentTime)
         return fullValue['BusDetails'][i];
-      }
     }
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity
+      <Pressable
         style={styles.GoBack}
         onPress={() => navigation.navigate('HomeScreen')}>
         <Image
@@ -42,45 +47,9 @@ function DetailsPage({route, navigation}) {
         />
         <Text style={styles.SectionHead}>{route.params['name']}</Text>
         {/* <Text style={styles.SectionTitle}>Result for</Text> */}
-      </TouchableOpacity>
+      </Pressable>
 
-      <View style={styles.ResultView}>
-        <View style={styles.BottomInfo}>
-          <View style={styles.BusIdentifier}>
-            <Image
-              style={styles.RouteLogoImg}
-              source={require('../assets/icons/BusExpress.png')}
-            />
-            <Text style={styles.BusIdentifierText}>Express</Text>
-          </View>
-          <View style={styles.BusIdentifier}>
-            <Image
-              style={styles.RouteLogoImg}
-              source={require('../assets/icons/BusLocal.png')}
-            />
-            <Text style={styles.BusIdentifierText}>Local</Text>
-          </View>
-          <View style={styles.BusIdentifier}>
-            <Image
-              style={styles.RouteLogoImg}
-              source={require('../assets/icons/BusHybrid.png')}
-            />
-            <Text style={styles.BusIdentifierText}>Hybrid</Text>
-          </View>
-        </View>
-        <View>
-          <Text
-            style={{
-              textAlign: 'center',
-              color: UiColors.dark,
-              paddingVertical: 5,
-            }}>
-            NB: Some external factors can affect the timings {'\n'} of the bus.
-          </Text>
-        </View>
-      </View>
-
-      <View>
+      {/* <View>
         <Text style={styles.SubHead}>Next bus</Text>
         <View style={styles.RouteView}>
           {nextBus ? (
@@ -111,25 +80,61 @@ function DetailsPage({route, navigation}) {
 
               <View style={styles.RouteText}>
                 <Text style={styles.RouteMainHead}>No Bus Found!</Text>
-                {/* <Text style={styles.RouteSrcDes}>{value.ReachesNitteAt}</Text> */}
               </View>
             </View>
           )}
         </View>
-      </View>
+      </View> */}
 
-      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+      {/* <View style={styles.ResultView}>
+        <View style={styles.BottomInfo}>
+          <View style={styles.BusIdentifier}>
+            <Image
+              style={styles.RouteLogoImg}
+              source={require('../assets/icons/BusExpress.png')}
+            />
+            <Text style={styles.BusIdentifierText}>Express</Text>
+          </View>
+          <View style={styles.BusIdentifier}>
+            <Image
+              style={styles.RouteLogoImg}
+              source={require('../assets/icons/BusLocal.png')}
+            />
+            <Text style={styles.BusIdentifierText}>Local</Text>
+          </View>
+          <View style={styles.BusIdentifier}>
+            <Image
+              style={styles.RouteLogoImg}
+              source={require('../assets/icons/BusNext.png')}
+            />
+            <Text style={styles.BusIdentifierText}>Next Bus</Text>
+          </View>
+        </View>
+      </View> */}
+
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'baseline',
+          justifyContent: 'space-between',
+        }}>
         <Text style={styles.SubHead}>All buses</Text>
-        <Text style={styles.SubHead}>
+        <Text style={styles.ResultReturn}>
           {fullValue['BusDetails'].length} results
         </Text>
       </View>
+
       <FlatList
         showsVerticalScrollIndicator={false}
         data={fullValue['BusDetails']}
-        style={styles.FlatListStyle}
         renderItem={({item, key}) => (
-          <View key={key} style={styles.RouteView}>
+          <View
+            key={key}
+            style={
+              // nextBus.Time == item.Time
+              // ? styles.RouteViewNextBus  :
+              styles.RouteView
+            }>
             <View
               style={{
                 flexDirection: 'row',
@@ -148,45 +153,54 @@ function DetailsPage({route, navigation}) {
               )}
               <View style={styles.RouteText}>
                 <Text style={styles.RouteMainHead}>{item.Name}</Text>
-                <Text style={styles.RouteSrcDes}>{item.Time}</Text>
+                <Text style={styles.RouteSrcDes}>{item.Type}</Text>
               </View>
+            </View>
+            <View style={styles.RouteText}>
+              <Text style={styles.BusTime}>{item.Time}</Text>
             </View>
           </View>
         )}
       />
+      <View style={styles.NextBusView}>
+        {nextBus != undefined ? (
+          <View style={styles.RouteViewNextBus}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                columnGap: 14,
+              }}>
+              <Image
+                style={styles.RouteLogo}
+                source={require('../assets/icons/BusNext.png')}
+              />
+              <Text style={styles.NextBusHead}>{nextBus.Name}</Text>
+            </View>
+            <View>
+              <Text style={styles.NextBusTime}>{nextBus.Time}</Text>
+            </View>
+          </View>
+        ) : (
+          ''
+        )}
+        {/* <Text
+          style={{
+            textAlign: 'center',
+            color: UiColors.dark,
+            marginVertical: 10,
+          }}>
+          Some external factors can affect the timings of the bus.
+        </Text> */}
+      </View>
     </SafeAreaView>
   );
 }
 export default DetailsPage;
 
 const styles = StyleSheet.create({
-  BottomInfo: {
-    paddingVertical: 5,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    columnGap: 30,
-  },
-  RouteLogoImg: {width: 25, marginRight: 10, height: 25, objectFit: 'contain'},
-  SubHead: {
-    color: UiColors.dark,
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 10,
-  },
-  GoBack: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    marginVertical: 8,
-  },
-  GoBackText: {
-    color: UiColors.dark,
-    fontSize: 19,
-    fontWeight: '400',
-  },
   container: {
     flex: 1,
-    fontFamily: 'Anderson-Bold',
     backgroundColor: UiColors.primary,
     paddingHorizontal: 10,
   },
@@ -199,10 +213,44 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   SectionHead: {
-    fontFamily: 'Anderson-Bold',
+    fontFamily: 'HelveticaNowDisplay-Bold',
     color: UiColors.dark,
-    fontSize: 23,
-    fontWeight: '700',
+    fontSize: 20,
+  },
+  NextBusView: {
+    paddingVertical: 2,
+    backgroundColor: UiColors.light,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  BottomInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    columnGap: 30,
+  },
+  RouteLogoImg: {width: 25, marginRight: 10, height: 25, objectFit: 'contain'},
+  SubHead: {
+    fontFamily: 'HelveticaNowDisplay-Bold',
+    color: UiColors.dark,
+    fontSize: 20,
+    marginTop: 10,
+  },
+  ResultReturn: {
+    fontFamily: 'HelveticaNowDisplay-Bold',
+    color: '#00000090',
+    fontSize: 18,
+    marginTop: 10,
+  },
+  GoBack: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginTop: 8,
+  },
+  GoBackText: {
+    color: UiColors.dark,
+    fontSize: 19,
+    fontWeight: '400',
   },
   RouteLogo: {
     width: 35,
@@ -211,23 +259,38 @@ const styles = StyleSheet.create({
   },
   RouteText: {
     marginLeft: 15,
-    rowGap: 4,
+    columnGap: -2,
   },
   RouteMainHead: {
-    // fontFamily: 'Anderson-Bold',
+    fontFamily: 'HelveticaNowDisplay-Bold',
     color: UiColors.dark,
-    fontWeight: '700',
-    fontSize: 20,
+    fontSize: 21,
+    marginBottom: -3,
+  },
+  NextBusHead: {
+    fontFamily: 'HelveticaNowDisplay-Bold',
+    color: UiColors.dark,
+    fontSize: 22,
   },
   ReachingTime: {
+    fontFamily: 'HelveticaNowDisplay-Bold',
     fontSize: 25,
     color: UiColors.dark,
   },
-  RouteSrcDes: {
-    // fontFamily: 'Anderson-Bold',
+  BusTime: {
+    fontFamily: 'HelveticaNowDisplay-Bold',
     color: UiColors.dark,
-    fontWeight: '400',
+    fontSize: 21,
+  },
+  RouteSrcDes: {
+    color: UiColors.dark,
+    fontFamily: 'HelveticaNowDisplay-Medium',
     fontSize: 17,
+  },
+  NextBusTime: {
+    color: UiColors.dark,
+    fontWeight: '700',
+    fontSize: 26,
   },
   GoBackImg: {
     width: 30,
@@ -238,18 +301,26 @@ const styles = StyleSheet.create({
     height: 35,
     objectFit: 'contain',
   },
-  RouteView: {
+  RouteViewNextBus: {
     flexDirection: 'row',
-    width: Dimensions.get('window').width - 20,
+    width: '100%',
     padding: 17,
     alignItems: 'center',
-    rowGap: 15,
-    marginBottom: 10,
-    columnGap: 15,
+    justifyContent: 'space-between',
+    borderRadius: 10,
+  },
+  RouteView: {
+    flexDirection: 'row',
+    width: '100%',
+    paddingHorizontal: 17,
+    paddingVertical: 15,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 10,
     borderRadius: 10,
     backgroundColor: UiColors.secondary,
   },
-  ResultView: {margin: 5},
+  ResultView: {marginVertical: 12},
   SectionTitle: {
     fontSize: 18,
     color: UiColors.dark,

@@ -11,8 +11,7 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import UiColors from '../assets/colors';
-import {useState, useRef} from 'react';
-import RBSheet from 'react-native-raw-bottom-sheet';
+import {useState} from 'react';
 
 function Project({navigation}) {
   const [viewModel, setViewModel] = useState(false);
@@ -25,11 +24,17 @@ function Project({navigation}) {
           style={styles.GoBackImg}
           source={require('../assets/icons/GoBack.png')}
         />
-        <Text style={styles.GoBackText}>App Information</Text>
+        <Text style={styles.GoBackText}>Go Back</Text>
       </TouchableOpacity>
       <View>
         <Text style={styles.SubHead}>Add Contributions</Text>
-        <TouchableOpacity style={styles.RouteView}>
+        <TouchableOpacity
+          onPress={() => {
+            Linking.openURL(
+              'https://bhvsh.notion.site/Bus-Timings-Nitte-de5c216b4a454653b1fd716742c85700',
+            );
+          }}
+          style={styles.RouteView}>
           <View
             style={{
               flexDirection: 'row',
@@ -41,6 +46,27 @@ function Project({navigation}) {
             />
             <View style={styles.RouteText}>
               <Text style={styles.RouteMainHead}>Add bus timings</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            Linking.openURL(
+              'https://bhvsh.notion.site/Bus-Timings-Nitte-de5c216b4a454653b1fd716742c85700',
+            );
+          }}
+          style={styles.RouteView}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            <Image
+              style={styles.RouteLogo}
+              source={require('../assets/icons/DataIcon.png')}
+            />
+            <View style={styles.RouteText}>
+              <Text style={styles.RouteMainHead}>Data Credit</Text>
             </View>
           </View>
         </TouchableOpacity>
@@ -116,8 +142,20 @@ function Project({navigation}) {
           marginBottom: 10,
           bottom: 0,
         }}>
-        <Text style={{color: UiColors.dark}}>Bus Watch</Text>
-        <Text style={{color: UiColors.dark}}>Dev Version 1.0</Text>
+        <Text
+          style={{
+            color: UiColors.dark,
+            fontFamily: 'HelveticaNowDisplay-Medium',
+          }}>
+          BusWatch ©
+        </Text>
+        <Text
+          style={{
+            color: UiColors.dark,
+            fontFamily: 'HelveticaNowDisplay-Medium',
+          }}>
+          Development version 1.0
+        </Text>
       </View>
 
       {viewModel ? (
@@ -190,36 +228,40 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     columnGap: 8,
     backgroundColor: UiColors.dark,
-    paddingVertical: 15,
-    paddingHorizontal: 20,
+    paddingVertical: 18,
+    paddingHorizontal: 25,
     marginVertical: 10,
-    borderRadius: 5,
+    borderRadius: 13,
   },
-  buttonText: {color: UiColors.light, fontSize: 18},
+  buttonText: {
+    color: UiColors.light,
+    fontFamily: 'HelveticaNowDisplay-Medium',
+    fontSize: 18,
+  },
   ModalBackdrop: {backgroundColor: '#000000a8', height: '100%'},
   RatingText: {
     // paddingVertical: 60,
     backgroundColor: UiColors.light,
     alignItems: 'center',
     justifyContent: 'center',
-    borderTopEndRadius: 15,
-    borderTopStartRadius: 15,
+    borderTopEndRadius: 20,
+    borderTopStartRadius: 20,
     position: 'absolute',
     width: '100%',
     height: '50%',
     bottom: 0,
   },
   RateAppText: {
-    fontSize: 18,
+    fontSize: 20,
     color: UiColors.dark,
-    fontWeight: '500',
+    fontFamily: 'HelveticaNowDisplay-Medium',
   },
   RateBusWatch: {
     fontSize: 28,
-    fontWeight: '600',
+    fontFamily: 'HelveticaNowDisplay-Bold',
     color: UiColors.dark,
   },
-  BottonInfo: {
+  BottomInfo: {
     paddingVertical: 5,
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -227,9 +269,9 @@ const styles = StyleSheet.create({
   },
   RouteLogoImg: {width: 25, marginRight: 10, height: 25, objectFit: 'contain'},
   SubHead: {
+    fontFamily: 'HelveticaNowDisplay-Bold',
     color: UiColors.dark,
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: 19,
     marginBottom: 10,
   },
   GoBack: {
@@ -239,9 +281,9 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   GoBackText: {
+    fontFamily: 'HelveticaNowDisplay-Bold',
     color: UiColors.dark,
-    fontSize: 19,
-    fontWeight: '400',
+    fontSize: 20,
   },
   container: {
     flex: 1,
@@ -264,8 +306,8 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   RouteLogo: {
-    width: 30,
-    height: 30,
+    width: 28,
+    height: 28,
     objectFit: 'contain',
   },
   RouteText: {
@@ -273,28 +315,13 @@ const styles = StyleSheet.create({
     rowGap: 4,
   },
   RouteMainHead: {
-    fontFamily: 'Anderson-Bold',
     color: UiColors.dark,
+    fontFamily: 'HelveticaNowDisplay-Bold',
     fontSize: 20,
-    fontWeight: '700',
-  },
-  ReachingTime: {
-    fontSize: 25,
-    color: UiColors.dark,
-  },
-  RouteSrcDes: {
-    fontFamily: 'Anderson-Bold',
-    color: UiColors.dark,
-    fontSize: 17,
   },
   GoBackImg: {
     width: 30,
     height: 30,
-  },
-  GoBackText: {
-    fontSize: 20,
-    color: UiColors.dark,
-    fontWeight: '600',
   },
   NavLogo: {
     width: 155,
@@ -304,7 +331,7 @@ const styles = StyleSheet.create({
   RouteView: {
     flexDirection: 'row',
     width: Dimensions.get('window').width - 20,
-    paddingVertical: 28,
+    paddingVertical: 20,
     paddingHorizontal: 17,
     alignItems: 'center',
     rowGap: 15,
