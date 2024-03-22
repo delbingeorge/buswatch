@@ -30,9 +30,7 @@ function Project({navigation}) {
         <Text style={styles.SubHead}>Add Contributions</Text>
         <TouchableOpacity
           onPress={() => {
-            Linking.openURL(
-              'https://bhvsh.notion.site/Bus-Timings-Nitte-de5c216b4a454653b1fd716742c85700',
-            );
+            Linking.openURL('https://forms.gle/t7Z2Y2fZWR4t8Ekd6');
           }}
           style={styles.RouteView}>
           <View
@@ -72,28 +70,48 @@ function Project({navigation}) {
         </TouchableOpacity>
       </View>
 
-      <View>
-        <Text style={styles.SubHead}>About the app</Text>
-        <TouchableOpacity
-          style={styles.RouteView}
-          onPress={() => {
-            Linking.openURL('https://delb.in/');
+      <Text style={styles.SubHead}>About the app</Text>
+
+      <TouchableOpacity
+        style={styles.RouteView}
+        onPress={() => {
+          Linking.openURL('https://delb.in/');
+        }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
           }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}>
-            <Image
-              style={styles.RouteLogo}
-              source={require('../assets/icons/DevMode.png')}
-            />
-            <View style={styles.RouteText}>
-              <Text style={styles.RouteMainHead}>Developer info</Text>
-            </View>
+          <Image
+            style={styles.RouteLogo}
+            source={require('../assets/icons/DevMode.png')}
+          />
+          <View style={styles.RouteText}>
+            <Text style={styles.RouteMainHead}>Developer info</Text>
           </View>
-        </TouchableOpacity>
-      </View>
+        </View>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.RouteView}
+        onPress={() => {
+          Linking.openURL('https://forms.gle/ULLPnt2Y3CCvzUwH8');
+        }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <Image
+            style={styles.RouteLogo}
+            source={require('../assets/icons/SuggestionIcon.png')}
+          />
+          <View style={styles.RouteText}>
+            <Text style={styles.RouteMainHead}>Suggest feature</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+
       <TouchableOpacity
         onPress={() => {
           setViewModel(true);
@@ -133,38 +151,13 @@ function Project({navigation}) {
         </View>
       </TouchableOpacity>
 
-      <View
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'absolute',
-          width: Dimensions.get('window').width,
-          marginBottom: 10,
-          bottom: 0,
-        }}>
-        <Text
-          style={{
-            color: UiColors.dark,
-            fontFamily: 'HelveticaNowDisplay-Medium',
-          }}>
-          BusWatch ©
-        </Text>
-        <Text
-          style={{
-            color: UiColors.dark,
-            fontFamily: 'HelveticaNowDisplay-Medium',
-          }}>
-          Development version 1.0
-        </Text>
+      <View style={styles.DeveloperCredit}>
+        <Text style={styles.FooterCredit}>Bus Watch ©</Text>
+        <Text style={styles.FooterCredit}>Development version 1.0</Text>
       </View>
 
       {viewModel ? (
         <Modal transparent={true} visible={viewModel} animationType="slide">
-          <Pressable
-            onPress={() => {
-              setViewModel(false);
-            }}
-            style={styles.ModalBackdrop}></Pressable>
           <View style={styles.RatingText}>
             <Pressable
               style={styles.RatingClosePressable}
@@ -180,7 +173,7 @@ function Project({navigation}) {
               style={styles.RatingImage}
               source={require('../assets/icons/RatingStar.png')}
             />
-            <Text style={styles.RateBusWatch}>Rate BusWatch</Text>
+            <Text style={styles.RateBusWatch}>Rate Bus Watch</Text>
             <Text style={styles.RateAppText}>
               We don't need 5 stars, just one.
             </Text>
@@ -193,7 +186,7 @@ function Project({navigation}) {
               <Image
                 style={styles.GitStarIcon}
                 source={require('../assets/icons/GitStarIcon.png')}></Image>
-              <Text style={styles.buttonText}>Star us in GitHub</Text>
+              <Text style={styles.buttonText}>Star us on GitHub</Text>
             </TouchableOpacity>
           </View>
         </Modal>
@@ -207,9 +200,41 @@ function Project({navigation}) {
 export default Project;
 
 const styles = StyleSheet.create({
-  ReviewText: {
+  container: {
+    flex: 1,
+    fontFamily: 'Anderson-Bold',
+    backgroundColor: UiColors.primary,
+    paddingHorizontal: 10,
+  },
+  RouteLogo: {
+    width: 28,
+    height: 28,
+    objectFit: 'contain',
+  },
+  RouteText: {
+    marginLeft: 15,
+    rowGap: 4,
+  },
+  RouteMainHead: {
+    color: UiColors.dark,
+    fontFamily: 'HelveticaNowDisplay-Bold',
+    fontSize: 20,
+  },
+  GoBackImg: {
+    width: 30,
+    height: 30,
+  },
+  RouteView: {
+    flexDirection: 'row',
+    width: Dimensions.get('window').width - 20,
+    paddingVertical: 20,
+    paddingHorizontal: 17,
     alignItems: 'center',
-    justifyContent: 'center',
+    rowGap: 15,
+    marginBottom: 10,
+    columnGap: 15,
+    borderRadius: 10,
+    backgroundColor: UiColors.secondary,
   },
   RatingClosePressable: {
     position: 'absolute',
@@ -235,12 +260,11 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: UiColors.light,
-    fontFamily: 'HelveticaNowDisplay-Medium',
+    fontFamily: 'HelveticaNowDisplay-Bold',
     fontSize: 18,
   },
   ModalBackdrop: {backgroundColor: '#000000a8', height: '100%'},
   RatingText: {
-    // paddingVertical: 60,
     backgroundColor: UiColors.light,
     alignItems: 'center',
     justifyContent: 'center',
@@ -248,7 +272,7 @@ const styles = StyleSheet.create({
     borderTopStartRadius: 20,
     position: 'absolute',
     width: '100%',
-    height: '50%',
+    height: '100%',
     bottom: 0,
   },
   RateAppText: {
@@ -261,13 +285,6 @@ const styles = StyleSheet.create({
     fontFamily: 'HelveticaNowDisplay-Bold',
     color: UiColors.dark,
   },
-  BottomInfo: {
-    paddingVertical: 5,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    columnGap: 30,
-  },
-  RouteLogoImg: {width: 25, marginRight: 10, height: 25, objectFit: 'contain'},
   SubHead: {
     fontFamily: 'HelveticaNowDisplay-Bold',
     color: UiColors.dark,
@@ -285,71 +302,16 @@ const styles = StyleSheet.create({
     color: UiColors.dark,
     fontSize: 20,
   },
-  container: {
-    flex: 1,
-    fontFamily: 'Anderson-Bold',
-    backgroundColor: UiColors.primary,
-    paddingHorizontal: 10,
-  },
-  NavView: {
-    flexDirection: 'row',
-    width: Dimensions.get('window').width - 20,
-    height: 20,
-    marginVertical: 10,
-    justifyContent: 'flex-start',
+  DeveloperCredit: {
     alignItems: 'center',
-  },
-  SectionHead: {
-    fontFamily: 'Anderson-Bold',
-    color: UiColors.dark,
-    fontSize: 23,
-    fontWeight: '700',
-  },
-  RouteLogo: {
-    width: 28,
-    height: 28,
-    objectFit: 'contain',
-  },
-  RouteText: {
-    marginLeft: 15,
-    rowGap: 4,
-  },
-  RouteMainHead: {
-    color: UiColors.dark,
-    fontFamily: 'HelveticaNowDisplay-Bold',
-    fontSize: 20,
-  },
-  GoBackImg: {
-    width: 30,
-    height: 30,
-  },
-  NavLogo: {
-    width: 155,
-    height: 35,
-    objectFit: 'contain',
-  },
-  RouteView: {
-    flexDirection: 'row',
-    width: Dimensions.get('window').width - 20,
-    paddingVertical: 20,
-    paddingHorizontal: 17,
-    alignItems: 'center',
-    rowGap: 15,
+    justifyContent: 'center',
+    position: 'absolute',
+    width: '100%',
     marginBottom: 10,
-    columnGap: 15,
-    borderRadius: 10,
-    backgroundColor: UiColors.secondary,
+    bottom: 0,
   },
-  ResultView: {marginBottom: 5},
-  SectionTitle: {
-    fontSize: 18,
+  FooterCredit: {
     color: UiColors.dark,
-    fontWeight: '600',
+    fontFamily: 'HelveticaNowDisplay-Medium',
   },
-  BusIdentifier: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    color: UiColors.dark,
-  },
-  BusIdentifierText: {color: UiColors.dark, fontWeight: '500', fontSize: 16},
 });

@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Dimensions,
   Image,
   SafeAreaView,
@@ -14,22 +15,34 @@ import {useEffect, useState} from 'react';
 
 export default function HomeScreen({navigation}) {
   const [data, setData] = useState([]);
-  // const [search, setSearch] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true);
         const response = await fetch(
           'https://raw.githubusercontent.com/dllbn/bswtch/main/data-bswtch.json',
         );
         const jsonData = await response.json();
         setData(jsonData);
+        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
+        setIsLoading(false);
       }
     };
     fetchData();
   }, []);
+
+  if (isLoading) {
+    return (
+      <View style={styles.centered}>
+        <ActivityIndicator size="large" color="#ff0000" />
+        <Text style={styles.LoadingText}>Fetching route data</Text>
+      </View>
+    );
+  }
 
   // const handleSearchText = text => {
   //   setSearch(text);
@@ -61,7 +74,6 @@ export default function HomeScreen({navigation}) {
         </TouchableOpacity>
       </View>
       <View>
-
         {/* <View style={{marginBottom: 10}}>
           <TextInput
             style={{
@@ -108,6 +120,16 @@ export default function HomeScreen({navigation}) {
 }
 
 const styles = StyleSheet.create({
+  centered: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  LoadingText: {
+    fontFamily: 'HelveticaNowDisplay-Medium',
+    fontSize: 18,
+    color: UiColors.dark,
+  },
   container: {
     flex: 1,
     backgroundColor: UiColors.primary,
@@ -115,7 +137,7 @@ const styles = StyleSheet.create({
   },
   NavView: {
     flexDirection: 'row',
-    width: Dimensions.get('window').width - 20,
+    width: '100%',
     height: 40,
     marginVertical: 10,
     justifyContent: 'space-between',

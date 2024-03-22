@@ -24,10 +24,8 @@ function DetailsPage({route, navigation}) {
   const currentTime = `${hours}:${minutes}`;
   // let currentTime = hours + ':' + mins;
   // let currentTime = '07:52';
-  console.log(currentTime);
 
   let nextBus = getNextBus();
-  console.log(nextBus);
 
   function getNextBus() {
     for (let i = 0; i < fullValue['BusDetails'].length; i++) {
