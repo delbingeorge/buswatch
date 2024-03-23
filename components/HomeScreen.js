@@ -12,8 +12,10 @@ import {
 } from 'react-native';
 import UiColors from '../assets/colors';
 import {useEffect, useState} from 'react';
+import {useNetInfo} from '@react-native-community/netinfo';
 
 export default function HomeScreen({navigation}) {
+  const netInfo = useNetInfo();
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -77,8 +79,7 @@ export default function HomeScreen({navigation}) {
           />
         </Pressable>
       </View>
-      <View>
-        {/* <View style={{marginBottom: 10}}>
+      {/* <View style={{marginBottom: 10}}>
           <TextInput
             style={{
               backgroundColor: UiColors.secondary,
@@ -94,31 +95,38 @@ export default function HomeScreen({navigation}) {
             placeholder="Search the place"></TextInput>
         </View> */}
 
-        <Text style={styles.SectionHead}>Select your route</Text>
-        <ScrollView>
-          {data.map((value, key) => (
-            <TouchableOpacity
-              key={key}
-              style={styles.RouteView}
-              onPress={() =>
-                navigation.navigate('DetailsPage', {
-                  id: value.id,
-                  name: value.SrcDes,
-                  fullValue: value,
-                })
-              }>
-              <Image
-                style={styles.RouteLogo}
-                source={require('../assets/icons/Routing.png')}
-              />
-              <View style={styles.RouteText}>
-                <Text style={styles.RouteMainHead}>{value.SrcDes}</Text>
-                <Text style={styles.RouteSrcDes}>{value.BusRoute}</Text>
-              </View>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-      </View>
+      {netInfo.isConnected == true ? (
+        <View>
+          <Text style={styles.SectionHead}>Select your route</Text>
+          <ScrollView>
+            {data.map((value, key) => (
+              <TouchableOpacity
+                key={key}
+                style={styles.RouteView}
+                onPress={() =>
+                  navigation.navigate('DetailsPage', {
+                    id: value.id,
+                    name: value.SrcDes,
+                    fullValue: value,
+                  })
+                }>
+                <Image
+                  style={styles.RouteLogo}
+                  source={require('../assets/icons/Routing.png')}
+                />
+                <View style={styles.RouteText}>
+                  <Text style={styles.RouteMainHead}>{value.SrcDes}</Text>
+                  <Text style={styles.RouteSrcDes}>{value.BusRoute}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
+      ) : (
+        <View>
+          <Text>no network</Text>
+        </View>
+      )}
     </SafeAreaView>
   );
 }

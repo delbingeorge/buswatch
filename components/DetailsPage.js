@@ -9,6 +9,7 @@ import {
   Pressable,
 } from 'react-native';
 import UiColors from '../assets/colors';
+import { useEffect } from 'react';
 
 function DetailsPage({route, navigation}) {
   const {fullValue} = route.params;
@@ -35,7 +36,7 @@ function DetailsPage({route, navigation}) {
     hoursDiff = (hoursDiff < 10 ? '0' : '') + hoursDiff;
     minsDiff = (minsDiff < 10 ? '0' : '') + minsDiff;
   }
-
+  
   function getNextBus() {
     for (let i = 0; i < fullValue['BusDetails'].length; i++) {
       if (fullValue['BusDetails'][i].Time > currentTime)

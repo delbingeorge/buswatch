@@ -15,13 +15,13 @@ Bus Watch is a mobile app built on top of React Native. Make it easy for student
 
 ## iOS users please be patient :)
 
-[![Add bus timing](https://github.com/dllbn/bswtch/blob/main/bswtch-images/Add%20Bus%20Timing.png?raw=true)](https://forms.gle/t7Z2Y2fZWR4t8Ekd6)
-
 [![Suggest a feature](https://github.com/dllbn/bswtch/blob/main/bswtch-images/Suggest%20a%20feature.png?raw=true)](https://forms.gle/ULLPnt2Y3CCvzUwH8)
+
+[![Add bus timing](https://github.com/dllbn/bswtch/blob/main/bswtch-images/Add%20Bus%20Timing.png?raw=true)](https://forms.gle/t7Z2Y2fZWR4t8Ekd6)
 
 [![Report a bug](https://github.com/dllbn/bswtch/blob/main/bswtch-images/Found%20a%20bug.png?raw=true)](https://forms.gle/Q4hNEWCENdMQ4WYj8)
 
-## Don't forget to star our repository!
+## Don't forget to star our repository! ⭐
 
 ## About Me
 
