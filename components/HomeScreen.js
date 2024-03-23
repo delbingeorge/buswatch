@@ -66,7 +66,7 @@ export default function HomeScreen({navigation}) {
           style={styles.NavLogo}
           source={require('../assets/icons/LogoType.png')}
         />
-        <TouchableOpacity onPress={() => navigation.navigate('ProjectPage')}>
+        <TouchableOpacity onPress={() => navigation.navigate('SettingsPage')}>
           <Image
             style={styles.AboutLogo}
             source={require('../assets/icons/HomeMenu.png')}
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
   SectionHead: {
     fontFamily: 'HelveticaNowDisplay-Bold',
     color: UiColors.dark,
-    fontSize: 20,
+    fontSize: 19.5,
     marginBottom: 10,
   },
   RouteLogo: {

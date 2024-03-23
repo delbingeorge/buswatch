@@ -3,7 +3,7 @@ import HomeScreen from './components/HomeScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DetailsPage from './components/DetailsPage';
-import Project from './components/Project';
+import Settings from './components/Settings';
 import {StatusBar} from 'react-native';
 
 function App(): React.JSX.Element {
@@ -16,7 +16,7 @@ function App(): React.JSX.Element {
         <Stack.Navigator screenOptions={{headerShown: false}}>
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
           <Stack.Screen name="DetailsPage" component={DetailsPage} />
-          <Stack.Screen name="ProjectPage" component={Project} />
+          <Stack.Screen name="SettingsPage" component={Settings} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

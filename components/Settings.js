@@ -32,18 +32,18 @@ function Project({navigation}) {
           onPress={() => {
             Linking.openURL('https://forms.gle/t7Z2Y2fZWR4t8Ekd6');
           }}
-          style={styles.RouteView}>
+          style={styles.SettingsView}>
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
             }}>
             <Image
-              style={styles.RouteLogo}
+              style={styles.SettingsLogo}
               source={require('../assets/icons/EditInfo.png')}
             />
-            <View style={styles.RouteText}>
-              <Text style={styles.RouteMainHead}>Add bus timings</Text>
+            <View style={styles.SettingsText}>
+              <Text style={styles.SettingsMainHead}>Add bus details</Text>
             </View>
           </View>
         </TouchableOpacity>
@@ -53,18 +53,18 @@ function Project({navigation}) {
               'https://bhvsh.notion.site/Bus-Timings-Nitte-de5c216b4a454653b1fd716742c85700',
             );
           }}
-          style={styles.RouteView}>
+          style={styles.SettingsView}>
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
             }}>
             <Image
-              style={styles.RouteLogo}
+              style={styles.SettingsLogo}
               source={require('../assets/icons/DataIcon.png')}
             />
-            <View style={styles.RouteText}>
-              <Text style={styles.RouteMainHead}>Data Credit</Text>
+            <View style={styles.SettingsText}>
+              <Text style={styles.SettingsMainHead}>Data credit</Text>
             </View>
           </View>
         </TouchableOpacity>
@@ -73,7 +73,7 @@ function Project({navigation}) {
       <Text style={styles.SubHead}>About the app</Text>
 
       <TouchableOpacity
-        style={styles.RouteView}
+        style={styles.SettingsView}
         onPress={() => {
           Linking.openURL('https://delb.in/');
         }}>
@@ -83,17 +83,17 @@ function Project({navigation}) {
             alignItems: 'center',
           }}>
           <Image
-            style={styles.RouteLogo}
+            style={styles.SettingsLogo}
             source={require('../assets/icons/DevMode.png')}
           />
-          <View style={styles.RouteText}>
-            <Text style={styles.RouteMainHead}>Developer info</Text>
+          <View style={styles.SettingsText}>
+            <Text style={styles.SettingsMainHead}>Developer info</Text>
           </View>
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={styles.RouteView}
+        style={styles.SettingsView}
         onPress={() => {
           Linking.openURL('https://forms.gle/ULLPnt2Y3CCvzUwH8');
         }}>
@@ -103,11 +103,11 @@ function Project({navigation}) {
             alignItems: 'center',
           }}>
           <Image
-            style={styles.RouteLogo}
+            style={styles.SettingsLogo}
             source={require('../assets/icons/SuggestionIcon.png')}
           />
-          <View style={styles.RouteText}>
-            <Text style={styles.RouteMainHead}>Suggest feature</Text>
+          <View style={styles.SettingsText}>
+            <Text style={styles.SettingsMainHead}>Suggest a feature</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -116,18 +116,18 @@ function Project({navigation}) {
         onPress={() => {
           setViewModel(true);
         }}
-        style={styles.RouteView}>
+        style={styles.SettingsView}>
         <View
           style={{
             flexDirection: 'row',
             alignItems: 'center',
           }}>
           <Image
-            style={styles.RouteLogo}
+            style={styles.SettingsLogo}
             source={require('../assets/icons/GitStar.png')}
           />
-          <View style={styles.RouteText}>
-            <Text style={styles.RouteMainHead}>Rate the app</Text>
+          <View style={styles.SettingsText}>
+            <Text style={styles.SettingsMainHead}>Rate the app</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -135,25 +135,25 @@ function Project({navigation}) {
         onPress={() => {
           Linking.openURL('https://forms.gle/Q4hNEWCENdMQ4WYj8');
         }}
-        style={styles.RouteView}>
+        style={styles.SettingsView}>
         <View
           style={{
             flexDirection: 'row',
             alignItems: 'center',
           }}>
           <Image
-            style={styles.RouteLogo}
+            style={styles.SettingsLogo}
             source={require('../assets/icons/BugReport.png')}
           />
-          <View style={styles.RouteText}>
-            <Text style={styles.RouteMainHead}>Report a bug</Text>
+          <View style={styles.SettingsText}>
+            <Text style={styles.SettingsMainHead}>Report a bug</Text>
           </View>
         </View>
       </TouchableOpacity>
 
       <View style={styles.DeveloperCredit}>
-        <Text style={styles.FooterCredit}>Bus Watch ©</Text>
-        <Text style={styles.FooterCredit}>Development version 1.0</Text>
+        <Text style={styles.FooterCreditHead}>Bus Watch © 2024</Text>
+        <Text style={styles.FooterCredit}>Version 1.1.10 Alpha</Text>
       </View>
 
       {viewModel ? (
@@ -206,25 +206,25 @@ const styles = StyleSheet.create({
     backgroundColor: UiColors.primary,
     paddingHorizontal: 10,
   },
-  RouteLogo: {
-    width: 28,
-    height: 28,
+  SettingsLogo: {
+    width: 26,
+    height: 26,
     objectFit: 'contain',
   },
-  RouteText: {
+  SettingsText: {
     marginLeft: 15,
     rowGap: 4,
   },
-  RouteMainHead: {
+  SettingsMainHead: {
     color: UiColors.dark,
     fontFamily: 'HelveticaNowDisplay-Bold',
-    fontSize: 20,
+    fontSize: 18,
   },
   GoBackImg: {
     width: 30,
     height: 30,
   },
-  RouteView: {
+  SettingsView: {
     flexDirection: 'row',
     width: Dimensions.get('window').width - 20,
     paddingVertical: 20,
@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
   SubHead: {
     fontFamily: 'HelveticaNowDisplay-Bold',
     color: UiColors.dark,
-    fontSize: 19,
+    fontSize: 19.5,
     marginBottom: 10,
   },
   GoBack: {
@@ -310,8 +310,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     bottom: 0,
   },
-  FooterCredit: {
+  FooterCreditHead: {
     color: UiColors.dark,
+    fontFamily: 'HelveticaNowDisplay-Medium',
+  },
+  FooterCredit: {
+    color: '#00000080',
+    fontSize: 13,
     fontFamily: 'HelveticaNowDisplay-Medium',
   },
 });

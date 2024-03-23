@@ -9,6 +9,7 @@ import {
   Pressable,
 } from 'react-native';
 import UiColors from '../assets/colors';
+import {useEffect} from 'react';
 
 function DetailsPage({route, navigation}) {
   const {fullValue} = route.params;
@@ -17,15 +18,24 @@ function DetailsPage({route, navigation}) {
   let hours = now.getHours();
   let minutes = now.getMinutes();
 
-  // Add leading zeros if needed
   hours = (hours < 10 ? '0' : '') + hours;
   minutes = (minutes < 10 ? '0' : '') + minutes;
 
   const currentTime = `${hours}:${minutes}`;
-  // let currentTime = hours + ':' + mins;
-  // let currentTime = '07:52';
 
+  // let currentTimeHours, nextBusTimeHours, hoursDiff, minsDiff;
   let nextBus = getNextBus();
+
+  // if (nextBus != undefined) {
+  //   currentTimeHours = currentTime.split(':');
+  //   nextBusTimeHours = nextBus.Time.split(':');
+
+  //   hoursDiff = nextBusTimeHours[0] - currentTimeHours[0];
+  //   minsDiff = nextBusTimeHours[1] - currentTimeHours[1];
+
+  //   hoursDiff = (hoursDiff < 10 ? '0' : '') + hoursDiff;
+  //   minsDiff = (minsDiff < 10 ? '0' : '') + minsDiff;
+  // }
 
   function getNextBus() {
     for (let i = 0; i < fullValue['BusDetails'].length; i++) {
@@ -129,8 +139,10 @@ function DetailsPage({route, navigation}) {
           <View
             key={key}
             style={
-              nextBus.Time == item.Time
-                ? styles.RouteViewNextBusHighlight
+              nextBus != undefined || nextBus != null
+                ? nextBus.Time == item.Time
+                  ? styles.RouteViewNextBusHighlight
+                  : styles.RouteView
                 : styles.RouteView
             }>
             <View
@@ -150,7 +162,11 @@ function DetailsPage({route, navigation}) {
                 />
               )}
               <View style={styles.RouteText}>
-                <Text style={styles.RouteMainHead}>{item.Name}</Text>
+                <Text style={styles.RouteMainHead}>
+                  {item.Name.length < 17
+                    ? item.Name
+                    : item.Name.substring(0, 17) + '...'}
+                </Text>
                 <Text style={styles.RouteSrcDes}>{item.Type}</Text>
               </View>
             </View>
@@ -173,7 +189,12 @@ function DetailsPage({route, navigation}) {
                 style={styles.RouteLogo}
                 source={require('../assets/icons/BusNext.png')}
               />
-              <Text style={styles.NextBusHead}>{nextBus.Name}</Text>
+              <View>
+                <Text style={styles.NextBusHead}>{nextBus.Name}</Text>
+                {/* <Text style={styles.NextBusTimeRemain}>
+                  {'in ' + hoursDiff + ' hrs' + ' : ' + minsDiff + ' mins'}
+                </Text> */}
+              </View>
             </View>
             <View>
               <Text style={styles.NextBusTime}>{nextBus.Time}</Text>
@@ -270,6 +291,11 @@ const styles = StyleSheet.create({
     color: UiColors.dark,
     fontSize: 21,
   },
+  NextBusTimeRemain: {
+    fontFamily: 'HelveticaNowDisplay-Bold',
+    color: '#00000090',
+    fontSize: 16,
+  },
   BusTime: {
     fontFamily: 'HelveticaNowDisplay-Bold',
     color: UiColors.dark,
@@ -302,6 +328,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#00000030',
     justifyContent: 'space-between',
     borderRadius: 10,
+    marginTop: 10,
   },
   RouteViewNextBus: {
     flexDirection: 'row',
