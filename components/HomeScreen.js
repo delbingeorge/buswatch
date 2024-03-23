@@ -39,6 +39,10 @@ export default function HomeScreen({navigation}) {
     return (
       <View style={styles.centered}>
         <ActivityIndicator size="large" color="#01bb88" />
+        {/* <Image
+          style={{width: 100, height: 100}}
+          source={require('../assets/icon.png')}
+        /> */}
         <Text style={styles.LoadingText}>Fetching route data</Text>
       </View>
     );
@@ -121,6 +125,7 @@ export default function HomeScreen({navigation}) {
 
 const styles = StyleSheet.create({
   centered: {
+    // backgroundColor: '#01bb88',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
