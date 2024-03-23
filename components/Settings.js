@@ -17,7 +17,7 @@ function Project({navigation}) {
   const [viewModel, setViewModel] = useState(false);
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity
+      <Pressable
         style={styles.GoBack}
         onPress={() => navigation.navigate('HomeScreen')}>
         <Image
@@ -25,7 +25,7 @@ function Project({navigation}) {
           source={require('../assets/icons/GoBack.png')}
         />
         <Text style={styles.GoBackText}>Go Back</Text>
-      </TouchableOpacity>
+      </Pressable>
       <View>
         <Text style={styles.SubHead}>Add Contributions</Text>
         <TouchableOpacity

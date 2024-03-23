@@ -9,7 +9,6 @@ import {
   Pressable,
 } from 'react-native';
 import UiColors from '../assets/colors';
-import {useEffect} from 'react';
 
 function DetailsPage({route, navigation}) {
   const {fullValue} = route.params;
@@ -23,19 +22,19 @@ function DetailsPage({route, navigation}) {
 
   const currentTime = `${hours}:${minutes}`;
 
-  // let currentTimeHours, nextBusTimeHours, hoursDiff, minsDiff;
+  let currentTimeHours, nextBusTimeHours, hoursDiff, minsDiff;
   let nextBus = getNextBus();
 
-  // if (nextBus != undefined) {
-  //   currentTimeHours = currentTime.split(':');
-  //   nextBusTimeHours = nextBus.Time.split(':');
+  if (nextBus != undefined) {
+    currentTimeHours = currentTime.split(':');
+    nextBusTimeHours = nextBus.Time.split(':');
 
-  //   hoursDiff = nextBusTimeHours[0] - currentTimeHours[0];
-  //   minsDiff = nextBusTimeHours[1] - currentTimeHours[1];
+    hoursDiff = nextBusTimeHours[0] - currentTimeHours[0];
+    minsDiff = nextBusTimeHours[1] - currentTimeHours[1];
 
-  //   hoursDiff = (hoursDiff < 10 ? '0' : '') + hoursDiff;
-  //   minsDiff = (minsDiff < 10 ? '0' : '') + minsDiff;
-  // }
+    hoursDiff = (hoursDiff < 10 ? '0' : '') + hoursDiff;
+    minsDiff = (minsDiff < 10 ? '0' : '') + minsDiff;
+  }
 
   function getNextBus() {
     for (let i = 0; i < fullValue['BusDetails'].length; i++) {
@@ -191,9 +190,9 @@ function DetailsPage({route, navigation}) {
               />
               <View>
                 <Text style={styles.NextBusHead}>{nextBus.Name}</Text>
-                {/* <Text style={styles.NextBusTimeRemain}>
+                <Text style={styles.NextBusTimeRemain}>
                   {'in ' + hoursDiff + ' hrs' + ' : ' + minsDiff + ' mins'}
-                </Text> */}
+                </Text>
               </View>
             </View>
             <View>

@@ -2,11 +2,11 @@ import {
   ActivityIndicator,
   Dimensions,
   Image,
+  Pressable,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -70,12 +70,12 @@ export default function HomeScreen({navigation}) {
           style={styles.NavLogo}
           source={require('../assets/icons/LogoType.png')}
         />
-        <TouchableOpacity onPress={() => navigation.navigate('SettingsPage')}>
+        <Pressable onPress={() => navigation.navigate('SettingsPage')}>
           <Image
             style={styles.AboutLogo}
             source={require('../assets/icons/HomeMenu.png')}
           />
-        </TouchableOpacity>
+        </Pressable>
       </View>
       <View>
         {/* <View style={{marginBottom: 10}}>

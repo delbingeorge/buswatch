@@ -1,4 +1,4 @@
-![Alt text](./git-images/BusWatchGithubCover.png)
+![Bus Watch Cover](https://github.com/dllbn/bswtch/blob/main/bswtch-images/BusWatch%20Github%20Cover.png?raw=true)
 
 # Bus Watch for Nitte
 
@@ -8,15 +8,21 @@ Bus Watch is a mobile app built on top of React Native. Make it easy for student
 
 ## Some notable goals of this app are
 
-- **Feature 1:** :- Allow anyone to use the app without creating an account.
-- **Feature 2:** :- Provide quick access to bus timings for a hassle-free experience.
+- Allow anyone to use the app without creating an account.
+- Provide quick access to bus timings for a hassle-free experience.
 
 ## Currently only for Android!
 
 ## iOS users please be patient :)
 
-## About Us
+[![Add bus timing](https://github.com/dllbn/bswtch/blob/main/bswtch-images/Add%20Bus%20Timing.png?raw=true)](https://forms.gle/t7Z2Y2fZWR4t8Ekd6)
 
-I'm a developer with a strong understanding of UI/UX principles and a passion for creating visually appealing and user-friendly user experiences for both mobile and web. I loves design and to code.
+[![Suggest a feature](https://github.com/dllbn/bswtch/blob/main/bswtch-images/Suggest%20a%20feature.png?raw=true)](https://forms.gle/ULLPnt2Y3CCvzUwH8)
+
+[![Report a bug](https://github.com/dllbn/bswtch/blob/main/bswtch-images/Found%20a%20bug.png?raw=true)](https://forms.gle/Q4hNEWCENdMQ4WYj8)
 
 ## Don't forget to star our repository!
+
+## About Me
+
+I'm a developer with a strong understanding of UI/UX principles and a passion for creating visually appealing and user-friendly user experiences for both mobile and web. I loves design and to code.
