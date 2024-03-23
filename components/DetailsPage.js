@@ -129,9 +129,9 @@ function DetailsPage({route, navigation}) {
           <View
             key={key}
             style={
-              // nextBus.Time == item.Time
-              // ? styles.RouteViewNextBus  :
-              styles.RouteView
+              nextBus.Time == item.Time
+                ? styles.RouteViewNextBusHighlight
+                : styles.RouteView
             }>
             <View
               style={{
@@ -230,13 +230,13 @@ const styles = StyleSheet.create({
   SubHead: {
     fontFamily: 'HelveticaNowDisplay-Bold',
     color: UiColors.dark,
-    fontSize: 20,
+    fontSize: 19,
     marginTop: 10,
   },
   ResultReturn: {
     fontFamily: 'HelveticaNowDisplay-Bold',
     color: '#00000090',
-    fontSize: 18,
+    fontSize: 14,
     marginTop: 10,
   },
   GoBack: {
@@ -262,28 +262,23 @@ const styles = StyleSheet.create({
   RouteMainHead: {
     fontFamily: 'HelveticaNowDisplay-Bold',
     color: UiColors.dark,
-    fontSize: 21,
+    fontSize: 18,
     marginBottom: -3,
   },
   NextBusHead: {
     fontFamily: 'HelveticaNowDisplay-Bold',
     color: UiColors.dark,
-    fontSize: 22,
-  },
-  ReachingTime: {
-    fontFamily: 'HelveticaNowDisplay-Bold',
-    fontSize: 25,
-    color: UiColors.dark,
+    fontSize: 21,
   },
   BusTime: {
     fontFamily: 'HelveticaNowDisplay-Bold',
     color: UiColors.dark,
-    fontSize: 21,
+    fontSize: 20,
   },
   RouteSrcDes: {
     color: UiColors.dark,
     fontFamily: 'HelveticaNowDisplay-Medium',
-    fontSize: 17,
+    fontSize: 15,
   },
   NextBusTime: {
     color: UiColors.dark,
@@ -298,6 +293,15 @@ const styles = StyleSheet.create({
     width: 155,
     height: 35,
     objectFit: 'contain',
+  },
+  RouteViewNextBusHighlight: {
+    flexDirection: 'row',
+    width: '100%',
+    padding: 17,
+    alignItems: 'center',
+    backgroundColor: '#00000030',
+    justifyContent: 'space-between',
+    borderRadius: 10,
   },
   RouteViewNextBus: {
     flexDirection: 'row',

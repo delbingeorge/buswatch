@@ -38,7 +38,7 @@ export default function HomeScreen({navigation}) {
   if (isLoading) {
     return (
       <View style={styles.centered}>
-        <ActivityIndicator size="large" color="#ff0000" />
+        <ActivityIndicator size="large" color="#01bb88" />
         <Text style={styles.LoadingText}>Fetching route data</Text>
       </View>
     );
@@ -170,12 +170,12 @@ const styles = StyleSheet.create({
   RouteMainHead: {
     color: UiColors.dark,
     fontFamily: 'HelveticaNowDisplay-Bold',
-    fontSize: 20,
+    fontSize: 18,
   },
   RouteSrcDes: {
     color: UiColors.dark,
     fontFamily: 'HelveticaNowDisplay-Medium',
-    fontSize: 17,
+    fontSize: 15,
   },
   RouteView: {
     flexDirection: 'row',
