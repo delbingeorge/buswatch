@@ -150,30 +150,55 @@ export default function HomeScreen({navigation}) {
           <Text>no network</Text>
         </View>
       )}
-      <Modal
-        transparent={true}
-        visible={notifyData['notify']}
-        animationType="slide">
-        <View style={styles.RatingText}>
-          <Image
-            style={styles.RatingImage}
-            source={require('../assets/icons/UpdateIcon.png')}
-          />
-          <Text style={styles.RateBusWatch}>{notifyData['notify-title']}</Text>
-          <Text style={styles.RateAppText}>{notifyData['notify-content']}</Text>
 
-          <TouchableOpacity
-            onPress={() => {
-              Linking.openURL(updateLink);
-            }}
-            style={styles.buttonContainer}>
+      {notifyData['notify'] == true ? (
+        <Modal
+          transparent={true}
+          visible={notifyData['notify']}
+          animationType="">
+          <View style={styles.RatingText}>
             <Image
-              style={styles.GitStarIcon}
-              source={require('../assets/icons/DownloadIcon.png')}></Image>
-            <Text style={styles.buttonText}>Download Now</Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
+              style={styles.RatingImage}
+              source={require('../assets/icons/UpdateIcon.png')}
+            />
+            <Text style={styles.RateBusWatch}>
+              {notifyData['notify-title']}
+            </Text>
+            <Text style={styles.RateAppText}>
+              {notifyData['notify-content']}
+            </Text>
+
+            <TouchableOpacity
+              onPress={() => {
+                Linking.openURL(updateLink);
+              }}
+              style={styles.buttonContainer}>
+              <Image
+                style={styles.GitStarIcon}
+                source={require('../assets/icons/DownloadIcon.png')}></Image>
+              <Text style={styles.buttonText}>Download Now</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setNotifyData(false);
+              }}>
+              <Text
+                style={
+                  ([styles.buttonText],
+                  {
+                    fontSize: 17,
+                    color: 'black',
+                    fontFamily: 'HelveticaNowDisplay-Medium',
+                  })
+                }>
+                Remind me later
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+      ) : (
+        ''
+      )}
     </SafeAreaView>
   );
 }

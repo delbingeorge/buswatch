@@ -151,12 +151,34 @@ function Project({navigation}) {
         </View>
       </TouchableOpacity>
 
+      <TouchableOpacity
+        onPress={() => {
+          Linking.openURL(
+            'https://github.com/delbingeorge/buswatch/blob/1c32193fcfe561ef4d78d9aea3a1b322ca3447b6/README.md',
+          );
+        }}
+        style={styles.SettingsView}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <Image
+            style={styles.SettingsLogo}
+            source={require('../assets/icons/DownloadIconBlack.png')}
+          />
+          <View style={styles.SettingsText}>
+            <Text style={styles.SettingsMainHead}>Check for updates</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+
       <View style={styles.DeveloperCredit}>
         <Text style={styles.FooterCreditHead}>Bus Watch © 2024</Text>
         <Text style={styles.FooterCredit}>Version 1.10.20 Alpha</Text>
       </View>
 
-      {viewModel ? (
+      {/* {viewModel ? (
         <Modal transparent={true} visible={viewModel} animationType="slide">
           <View style={styles.RatingText}>
             <Pressable
@@ -192,7 +214,7 @@ function Project({navigation}) {
         </Modal>
       ) : (
         ''
-      )}
+      )} */}
     </SafeAreaView>
   );
 }

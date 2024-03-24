@@ -14,7 +14,7 @@ import {useEffect, useState} from 'react';
 function DetailsPage({route, navigation}) {
   const {fullValue} = route.params;
   const [currentTime, setRenderInterval] = useState(getTime());
-  
+
   function getTime() {
     const now = new Date();
     let hours = now.getHours();
@@ -255,7 +255,8 @@ const styles = StyleSheet.create({
   },
   NextBusView: {
     paddingVertical: 2,
-    backgroundColor: UiColors.light,
+    backgroundColor: UiColors.dark,
+    marginHorizontal: -10,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -305,12 +306,12 @@ const styles = StyleSheet.create({
   },
   NextBusHead: {
     fontFamily: 'HelveticaNowDisplay-Bold',
-    color: UiColors.dark,
+    color: UiColors.light,
     fontSize: 21,
   },
   NextBusTimeRemain: {
     fontFamily: 'HelveticaNowDisplay-Bold',
-    color: '#00000090',
+    color: '#e2e2e2',
     fontSize: 16,
   },
   BusTime: {
@@ -324,7 +325,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   NextBusTime: {
-    color: UiColors.dark,
+    color: UiColors.light,
     fontWeight: '700',
     fontSize: 26,
   },
@@ -350,7 +351,8 @@ const styles = StyleSheet.create({
   RouteViewNextBus: {
     flexDirection: 'row',
     width: '100%',
-    padding: 17,
+    paddingVertical: 13,
+    paddingHorizontal: 17,
     alignItems: 'center',
     justifyContent: 'space-between',
     borderRadius: 10,
