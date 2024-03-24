@@ -16,8 +16,10 @@ import {useEffect, useState} from 'react';
 function Project({navigation}) {
   const [viewModel, setViewModel] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
-
   const [notifyData, setNotifyData] = useState([]);
+
+  const [currentVersion, setCurrentVersion] = useState(notifyData['id']);
+  const [latestVersion, setLatestVersion] = useState(null);
 
   useEffect(() => {
     const fetchUpData = async () => {
@@ -34,7 +36,6 @@ function Project({navigation}) {
     };
     fetchUpData();
   }, [notifyData['notify']]);
-  console.log(notifyData['notify']);
 
   return (
     <SafeAreaView style={styles.container}>
