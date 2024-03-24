@@ -2,6 +2,8 @@ import {
   ActivityIndicator,
   Dimensions,
   Image,
+  Linking,
+  Modal,
   Pressable,
   SafeAreaView,
   ScrollView,
@@ -19,6 +21,8 @@ export default function HomeScreen({navigation}) {
   const netInfo = useNetInfo();
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [notifyData, setNotifyData] = useState([]);
+  const updateLink = notifyData['action-btn'];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,16 +35,28 @@ export default function HomeScreen({navigation}) {
         setData(jsonData);
         setIsLoading(false);
       } catch (error) {
-        // console.error('Error fetching data:', error);
+        console.error('Error fetching data:', error);
         setIsLoading(netInfo.isInternetReachable);
       }
     };
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchUpData = async () => {
+      try {
+        const updateJsonData = await fetch(
+          'https://raw.githubusercontent.com/dllbn/bswtch/main/push-notification.json',
+        );
+        const updateResponse = await updateJsonData.json();
+        setNotifyData(updateResponse);
+      } catch (error) {
+        console.log('Error: ', error);
+      }
+    };
+    fetchUpData();
+  }, []);
 
-
-  
   if (isLoading) {
     return (
       <View style={styles.centered}>
@@ -134,6 +150,30 @@ export default function HomeScreen({navigation}) {
           <Text>no network</Text>
         </View>
       )}
+      <Modal
+        transparent={true}
+        visible={notifyData['notify']}
+        animationType="slide">
+        <View style={styles.RatingText}>
+          <Image
+            style={styles.RatingImage}
+            source={require('../assets/icons/UpdateIcon.png')}
+          />
+          <Text style={styles.RateBusWatch}>{notifyData['notify-title']}</Text>
+          <Text style={styles.RateAppText}>{notifyData['notify-content']}</Text>
+
+          <TouchableOpacity
+            onPress={() => {
+              Linking.openURL(updateLink);
+            }}
+            style={styles.buttonContainer}>
+            <Image
+              style={styles.GitStarIcon}
+              source={require('../assets/icons/DownloadIcon.png')}></Image>
+            <Text style={styles.buttonText}>Download Now</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -213,5 +253,45 @@ const styles = StyleSheet.create({
     columnGap: 15,
     borderRadius: 10,
     backgroundColor: UiColors.secondary,
+  },
+  RatingImage: {width: 80, height: 80},
+  GitStarIcon: {width: 20, height: 20},
+  buttonContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    columnGap: 8,
+    backgroundColor: UiColors.dark,
+    paddingVertical: 15,
+    paddingHorizontal: 25,
+    marginVertical: 10,
+    borderRadius: 10,
+  },
+  buttonText: {
+    color: UiColors.light,
+    fontFamily: 'HelveticaNowDisplay-Bold',
+    fontSize: 18,
+  },
+  ModalBackdrop: {backgroundColor: '#000000a8', height: '100%'},
+  RatingText: {
+    backgroundColor: UiColors.light,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderTopEndRadius: 20,
+    borderTopStartRadius: 20,
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    bottom: 0,
+  },
+  RateAppText: {
+    fontSize: 20,
+    color: UiColors.dark,
+    fontFamily: 'HelveticaNowDisplay-Medium',
+  },
+  RateBusWatch: {
+    fontSize: 28,
+    fontFamily: 'HelveticaNowDisplay-Bold',
+    color: UiColors.dark,
   },
 });

@@ -153,7 +153,7 @@ function Project({navigation}) {
 
       <View style={styles.DeveloperCredit}>
         <Text style={styles.FooterCreditHead}>Bus Watch © 2024</Text>
-        <Text style={styles.FooterCredit}>Version 1.10.15 Alpha</Text>
+        <Text style={styles.FooterCredit}>Version 1.10.20 Alpha</Text>
       </View>
 
       {viewModel ? (
