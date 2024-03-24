@@ -5,6 +5,7 @@ import {
   Pressable,
   SafeAreaView,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -30,8 +31,8 @@ export default function HomeScreen({navigation}) {
         setData(jsonData);
         setIsLoading(false);
       } catch (error) {
-        console.error('Error fetching data:', error);
-        setIsLoading(false);
+        // console.error('Error fetching data:', error);
+        setIsLoading(netInfo.isInternetReachable);
       }
     };
     fetchData();
@@ -40,12 +41,15 @@ export default function HomeScreen({navigation}) {
   if (isLoading) {
     return (
       <View style={styles.centered}>
-        <ActivityIndicator size="large" color="#01bb88" />
-        {/* <Image
+        <StatusBar backgroundColor="#00bb88" />
+        <Image
           style={{width: 100, height: 100}}
           source={require('../assets/icon.png')}
-        /> */}
-        <Text style={styles.LoadingText}>Fetching route data</Text>
+        />
+        <View style={styles.LoaderView}>
+          <ActivityIndicator size="small" color="#fff" />
+          <Text style={styles.LoadingText}>Fetching route data</Text>
+        </View>
       </View>
     );
   }
@@ -133,15 +137,21 @@ export default function HomeScreen({navigation}) {
 
 const styles = StyleSheet.create({
   centered: {
-    // backgroundColor: '#01bb88',
+    backgroundColor: '#01bb88',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
+  LoaderView: {
+    flexDirection: 'row',
+    columnGap: 12,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   LoadingText: {
     fontFamily: 'HelveticaNowDisplay-Medium',
-    fontSize: 18,
-    color: UiColors.dark,
+    fontSize: 20,
+    color: UiColors.light,
   },
   container: {
     flex: 1,
