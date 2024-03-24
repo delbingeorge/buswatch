@@ -48,8 +48,8 @@ export default function HomeScreen({navigation}) {
           source={require('../assets/icon.png')}
         />
         <View style={styles.LoaderView}>
-          <ActivityIndicator size="small" color="#fff" />
           <Text style={styles.LoadingText}>Fetching route data</Text>
+          <ActivityIndicator size="small" color="#fff" />
         </View>
       </View>
     );
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   LoaderView: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     columnGap: 12,
     alignItems: 'center',
     justifyContent: 'space-between',

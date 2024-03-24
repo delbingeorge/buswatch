@@ -266,7 +266,7 @@ function DetailsPage({route, navigation}) {
               />
               <View>
                 <Text style={styles.BusNotFoundText}>
-                  Sorry, couldn't locate any buses!
+                  Sorry, couldn't locate any bus!
                 </Text>
                 <Pressable
                   style={styles.AddBusButton}

@@ -1,6 +1,8 @@
 ![Bus Watch Cover](https://github.com/dllbn/bswtch/blob/main/bswtch-images/BusWatch%20Github%20Cover.png?raw=true)
 
-# Bus Watch for Nitte
+# Bus Watch 
+
+## Current Version : ### v1.10.30 Stable
 
 ## Introduction
 
