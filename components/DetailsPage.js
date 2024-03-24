@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   FlatList,
   Pressable,
+  Linking,
 } from 'react-native';
 import UiColors from '../assets/colors';
 import {useEffect, useState} from 'react';
@@ -150,6 +151,7 @@ function DetailsPage({route, navigation}) {
       </View>
 
       <FlatList
+        style={{paddingBottom: 20}}
         showsVerticalScrollIndicator={false}
         data={fullValue['BusDetails']}
         renderItem={({item, key}) => (
@@ -179,16 +181,41 @@ function DetailsPage({route, navigation}) {
                 />
               )}
               <View style={styles.RouteText}>
-                <Text style={styles.RouteMainHead}>
+                <Text
+                  style={
+                    nextBus != undefined || nextBus != null
+                      ? nextBus.Time == item.Time
+                        ? styles.RouteMainHeadHighlight
+                        : styles.RouteMainHead
+                      : styles.RouteMainHead
+                  }>
                   {item.Name.length < 17
                     ? item.Name
                     : item.Name.substring(0, 17) + '...'}
                 </Text>
-                <Text style={styles.RouteSrcDes}>{item.Type}</Text>
+                <Text
+                  style={
+                    nextBus != undefined || nextBus != null
+                      ? nextBus.Time == item.Time
+                        ? styles.RouteSrcDesHighlight
+                        : styles.RouteSrcDes
+                      : styles.RouteSrcDes
+                  }>
+                  {item.Type}
+                </Text>
               </View>
             </View>
             <View style={styles.RouteText}>
-              <Text style={styles.BusTime}>{item.Time}</Text>
+              <Text
+                style={
+                  nextBus != undefined || nextBus != null
+                    ? nextBus.Time == item.Time
+                      ? styles.BusTimeHighlight
+                      : styles.BusTime
+                    : styles.RouteMainHead
+                }>
+                {item.Time}
+              </Text>
             </View>
           </View>
         )}
@@ -202,10 +229,17 @@ function DetailsPage({route, navigation}) {
                 alignItems: 'center',
                 columnGap: 14,
               }}>
-              <Image
-                style={styles.RouteLogo}
-                source={require('../assets/icons/BusNext.png')}
-              />
+              {nextBus.Type == 'Express' ? (
+                <Image
+                  style={styles.RouteLogo}
+                  source={require('../assets/icons/BusExpress.png')}
+                />
+              ) : (
+                <Image
+                  style={styles.RouteLogo}
+                  source={require('../assets/icons/BusLocal.png')}
+                />
+              )}
               <View>
                 <Text style={styles.NextBusHead}>{nextBus.Name}</Text>
                 <Text style={styles.NextBusTimeRemain}>
@@ -218,7 +252,36 @@ function DetailsPage({route, navigation}) {
             </View>
           </View>
         ) : (
-          ''
+          <View style={styles.RouteViewNextBus}>
+            <View
+              style={{
+                flexDirection: 'row',
+                columnGap: 10,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Image
+                style={styles.RouteLogo}
+                source={require('../assets/icons/BusNext.png')}
+              />
+              <View>
+                <Text style={styles.BusNotFoundText}>
+                  Sorry, couldn't locate any buses!
+                </Text>
+                <Pressable
+                  style={styles.AddBusButton}
+                  onPress={() => {
+                    Linking.openURL('https://forms.gle/t7Z2Y2fZWR4t8Ekd6');
+                  }}>
+                  <Image
+                    style={styles.AddBusIcon}
+                    source={require('../assets/icons/AddBusIcon.png')}
+                  />
+                  <Text style={styles.BusNotFoundSubText}>Add missing bus</Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
         )}
         {/* <Text
           style={{
@@ -254,9 +317,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   NextBusView: {
-    paddingVertical: 2,
-    backgroundColor: UiColors.dark,
+    borderTopStartRadius: 15,
+    borderTopEndRadius: 15,
+    paddingVertical: 4,
+    backgroundColor: '#151515',
     marginHorizontal: -10,
+    marginTop: 5,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -304,19 +370,41 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: -3,
   },
+  RouteMainHeadHighlight: {
+    fontFamily: 'HelveticaNowDisplay-Bold',
+    color: UiColors.light,
+    fontSize: 18,
+    marginBottom: -3,
+  },
   NextBusHead: {
     fontFamily: 'HelveticaNowDisplay-Bold',
     color: UiColors.light,
     fontSize: 21,
+    marginBottom: -4,
   },
   NextBusTimeRemain: {
     fontFamily: 'HelveticaNowDisplay-Bold',
     color: '#e2e2e2',
+    fontSize: 14,
+  },
+  BusNotFoundText: {
+    fontFamily: 'HelveticaNowDisplay-Bold',
+    color: '#e2e2e2',
     fontSize: 16,
+  },
+  BusNotFoundSubText: {
+    fontFamily: 'HelveticaNowDisplay-Medium',
+    color: '#01bb88',
+    fontSize: 14,
   },
   BusTime: {
     fontFamily: 'HelveticaNowDisplay-Bold',
     color: UiColors.dark,
+    fontSize: 20,
+  },
+  BusTimeHighlight: {
+    fontFamily: 'HelveticaNowDisplay-Bold',
+    color: UiColors.light,
     fontSize: 20,
   },
   RouteSrcDes: {
@@ -324,8 +412,13 @@ const styles = StyleSheet.create({
     fontFamily: 'HelveticaNowDisplay-Medium',
     fontSize: 15,
   },
-  NextBusTime: {
+  RouteSrcDesHighlight: {
     color: UiColors.light,
+    fontFamily: 'HelveticaNowDisplay-Medium',
+    fontSize: 15,
+  },
+  NextBusTime: {
+    color: '#01bb88',
     fontWeight: '700',
     fontSize: 26,
   },
@@ -343,7 +436,7 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 17,
     alignItems: 'center',
-    backgroundColor: '#00000030',
+    backgroundColor: '#151515',
     justifyContent: 'space-between',
     borderRadius: 10,
     marginTop: 10,
@@ -351,11 +444,12 @@ const styles = StyleSheet.create({
   RouteViewNextBus: {
     flexDirection: 'row',
     width: '100%',
-    paddingVertical: 13,
-    paddingHorizontal: 17,
+    paddingVertical: 10,
+    paddingHorizontal: 25,
     alignItems: 'center',
     justifyContent: 'space-between',
     borderRadius: 10,
+    shadowColor: '#000000',
   },
   RouteView: {
     flexDirection: 'row',
@@ -380,4 +474,13 @@ const styles = StyleSheet.create({
     color: UiColors.dark,
   },
   BusIdentifierText: {color: UiColors.dark, fontWeight: '500', fontSize: 16},
+  AddBusButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    columnGap: 4,
+  },
+  AddBusIcon: {
+    width: 12,
+    height: 12,
+  },
 });

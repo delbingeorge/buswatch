@@ -21,8 +21,6 @@ export default function HomeScreen({navigation}) {
   const netInfo = useNetInfo();
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [notifyData, setNotifyData] = useState([]);
-  const updateLink = notifyData['action-btn'];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,26 +33,10 @@ export default function HomeScreen({navigation}) {
         setData(jsonData);
         setIsLoading(false);
       } catch (error) {
-        console.error('Error fetching data:', error);
-        setIsLoading(netInfo.isInternetReachable);
+        setIsLoading(true);
       }
     };
     fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchUpData = async () => {
-      try {
-        const updateJsonData = await fetch(
-          'https://raw.githubusercontent.com/dllbn/bswtch/main/push-notification.json',
-        );
-        const updateResponse = await updateJsonData.json();
-        setNotifyData(updateResponse);
-      } catch (error) {
-        console.log('Error: ', error);
-      }
-    };
-    fetchUpData();
   }, []);
 
   if (isLoading) {
@@ -149,55 +131,6 @@ export default function HomeScreen({navigation}) {
         <View>
           <Text>no network</Text>
         </View>
-      )}
-
-      {notifyData['notify'] == true ? (
-        <Modal
-          transparent={true}
-          visible={notifyData['notify']}
-          animationType="">
-          <View style={styles.RatingText}>
-            <Image
-              style={styles.RatingImage}
-              source={require('../assets/icons/UpdateIcon.png')}
-            />
-            <Text style={styles.RateBusWatch}>
-              {notifyData['notify-title']}
-            </Text>
-            <Text style={styles.RateAppText}>
-              {notifyData['notify-content']}
-            </Text>
-
-            <TouchableOpacity
-              onPress={() => {
-                Linking.openURL(updateLink);
-              }}
-              style={styles.buttonContainer}>
-              <Image
-                style={styles.GitStarIcon}
-                source={require('../assets/icons/DownloadIcon.png')}></Image>
-              <Text style={styles.buttonText}>Download Now</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                setNotifyData(false);
-              }}>
-              <Text
-                style={
-                  ([styles.buttonText],
-                  {
-                    fontSize: 17,
-                    color: 'black',
-                    fontFamily: 'HelveticaNowDisplay-Medium',
-                  })
-                }>
-                Remind me later
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </Modal>
-      ) : (
-        ''
       )}
     </SafeAreaView>
   );

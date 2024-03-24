@@ -11,10 +11,31 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import UiColors from '../assets/colors';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 function Project({navigation}) {
   const [viewModel, setViewModel] = useState(false);
+  const [isUpdate, setIsUpdate] = useState(false);
+
+  const [notifyData, setNotifyData] = useState([]);
+
+  useEffect(() => {
+    const fetchUpData = async () => {
+      try {
+        const updateJsonData = await fetch(
+          'https://raw.githubusercontent.com/dllbn/bswtch/main/push-notification.json',
+        );
+        const updateResponse = await updateJsonData.json();
+        setNotifyData(updateResponse);
+        setIsUpdate(updateResponse['notify']);
+      } catch (error) {
+        console.log('Error: ', error);
+      }
+    };
+    fetchUpData();
+  }, [notifyData['notify']]);
+  console.log(notifyData['notify']);
+
   return (
     <SafeAreaView style={styles.container}>
       <Pressable
@@ -131,6 +152,7 @@ function Project({navigation}) {
           </View>
         </View>
       </TouchableOpacity>
+
       <TouchableOpacity
         onPress={() => {
           Linking.openURL('https://forms.gle/Q4hNEWCENdMQ4WYj8');
@@ -153,9 +175,7 @@ function Project({navigation}) {
 
       <TouchableOpacity
         onPress={() => {
-          Linking.openURL(
-            'https://github.com/delbingeorge/buswatch/blob/1c32193fcfe561ef4d78d9aea3a1b322ca3447b6/README.md',
-          );
+          setIsUpdate(true);
         }}
         style={styles.SettingsView}>
         <View
@@ -175,10 +195,10 @@ function Project({navigation}) {
 
       <View style={styles.DeveloperCredit}>
         <Text style={styles.FooterCreditHead}>Bus Watch © 2024</Text>
-        <Text style={styles.FooterCredit}>Version 1.10.20 Alpha</Text>
+        <Text style={styles.FooterCredit}>Version 1.10.30 Stable</Text>
       </View>
 
-      {/* {viewModel ? (
+      {viewModel ? (
         <Modal transparent={true} visible={viewModel} animationType="slide">
           <View style={styles.RatingText}>
             <Pressable
@@ -214,7 +234,74 @@ function Project({navigation}) {
         </Modal>
       ) : (
         ''
-      )} */}
+      )}
+
+      {notifyData['notify'] ? (
+        <Modal transparent={true} visible={isUpdate} animationType="slide">
+          <View style={styles.RatingText}>
+            <Image
+              style={styles.RatingImage}
+              source={require('../assets/icons/UpdateIcon.png')}
+            />
+            <Text style={styles.RateBusWatch}>
+              {notifyData['notify-title']}
+            </Text>
+            <Text style={styles.RateAppText}>
+              {notifyData['notify-content']}
+            </Text>
+
+            <TouchableOpacity
+              onPress={() => {
+                Linking.openURL(notifyData['action-btn']);
+              }}
+              style={styles.buttonContainer}>
+              <Image
+                style={styles.GitStarIcon}
+                source={require('../assets/icons/DownloadIcon.png')}></Image>
+              <Text style={styles.buttonText}>Download Now</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setIsUpdate(false);
+              }}>
+              <Text
+                style={
+                  ([styles.buttonText],
+                  {
+                    fontSize: 16,
+                    color: 'black',
+                    fontFamily: 'HelveticaNowDisplay-Bold',
+                  })
+                }>
+                Remind me later
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+      ) : (
+        <Modal transparent={true} visible={isUpdate} animationType="slide">
+          <View style={styles.RatingText}>
+            <Pressable
+              style={styles.RatingClosePressable}
+              onPress={() => {
+                setIsUpdate(false);
+              }}>
+              <Image
+                style={styles.RatingClose}
+                source={require('../assets/icons/CloseIcon.png')}
+              />
+            </Pressable>
+            <Image
+              style={styles.RatingImage}
+              source={require('../assets/icons/UpdateIcon.png')}
+            />
+            <Text style={styles.RateBusWatch}>Up to date!</Text>
+            <Text style={styles.RateAppText}>
+              Current Version 1.10.30 Stable
+            </Text>
+          </View>
+        </Modal>
+      )}
     </SafeAreaView>
   );
 }
@@ -275,10 +362,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     columnGap: 8,
     backgroundColor: UiColors.dark,
-    paddingVertical: 18,
+    paddingVertical: 14,
     paddingHorizontal: 25,
     marginVertical: 10,
-    borderRadius: 13,
+    borderRadius: 8,
   },
   buttonText: {
     color: UiColors.light,
@@ -298,7 +385,7 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   RateAppText: {
-    fontSize: 20,
+    fontSize: 16,
     color: UiColors.dark,
     fontFamily: 'HelveticaNowDisplay-Medium',
   },
