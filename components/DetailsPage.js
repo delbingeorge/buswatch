@@ -9,18 +9,28 @@ import {
   Pressable,
 } from 'react-native';
 import UiColors from '../assets/colors';
+import {useEffect, useState} from 'react';
 
 function DetailsPage({route, navigation}) {
   const {fullValue} = route.params;
+  const [currentTime, setRenderInterval] = useState(getTime());
+  
+  function getTime() {
+    const now = new Date();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    hours = (hours < 10 ? '0' : '') + hours;
+    minutes = (minutes < 10 ? '0' : '') + minutes;
+    return `${hours}:${minutes}`;
+  }
 
-  const now = new Date();
-  let hours = now.getHours();
-  let minutes = now.getMinutes();
+  useEffect(() => {
+    const reRenderInterval = setInterval(() => {
+      setRenderInterval(getTime());
+    }, 0);
 
-  hours = (hours < 10 ? '0' : '') + hours;
-  minutes = (minutes < 10 ? '0' : '') + minutes;
-
-  const currentTime = `${hours}:${minutes}`;
+    return () => clearInterval(reRenderInterval);
+  });
 
   let currentTimeHours, nextBusTimeHours, hoursDiff, minsDiff;
   let nextBus = getNextBus();
@@ -30,7 +40,15 @@ function DetailsPage({route, navigation}) {
     nextBusTimeHours = nextBus.Time.split(':');
 
     hoursDiff = nextBusTimeHours[0] - currentTimeHours[0];
+    if (hoursDiff < 0) {
+      hoursDiff += 24;
+    }
+
     minsDiff = nextBusTimeHours[1] - currentTimeHours[1];
+    if (minsDiff < 0) {
+      minsDiff += 60;
+      hoursDiff--;
+    }
 
     hoursDiff = (hoursDiff < 10 ? '0' : '') + hoursDiff;
     minsDiff = (minsDiff < 10 ? '0' : '') + minsDiff;

@@ -38,6 +38,9 @@ export default function HomeScreen({navigation}) {
     fetchData();
   }, []);
 
+
+
+  
   if (isLoading) {
     return (
       <View style={styles.centered}>
