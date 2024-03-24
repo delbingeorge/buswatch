@@ -250,7 +250,6 @@ function Project({navigation}) {
             <Text style={styles.RateAppText}>
               {notifyData['notify-content']}
             </Text>
-
             <TouchableOpacity
               onPress={() => {
                 Linking.openURL(notifyData['action-btn']);
@@ -297,9 +296,16 @@ function Project({navigation}) {
               source={require('../assets/icons/UpdateIcon.png')}
             />
             <Text style={styles.RateBusWatch}>Up to date!</Text>
-            <Text style={styles.RateAppText}>
-              Current Version 1.10.30 Stable
-            </Text>
+            <Pressable
+              onPress={() => {
+                Linking.openURL(
+                  'https://github.com/delbingeorge/buswatch/blob/f32c2569f110ec686fbba21015a3aab2db427595/README.md',
+                );
+              }}>
+              <Text style={styles.RateAppText}>
+                Current Version 1.10.30 Stable
+              </Text>
+            </Pressable>
           </View>
         </Modal>
       )}
@@ -378,8 +384,6 @@ const styles = StyleSheet.create({
     backgroundColor: UiColors.light,
     alignItems: 'center',
     justifyContent: 'center',
-    borderTopEndRadius: 20,
-    borderTopStartRadius: 20,
     position: 'absolute',
     width: '100%',
     height: '100%',

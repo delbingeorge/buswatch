@@ -1,8 +1,8 @@
 ![Bus Watch Cover](https://github.com/dllbn/bswtch/blob/main/bswtch-images/BusWatch%20Github%20Cover.png?raw=true)
 
-# Bus Watch 
+# Bus Watch
 
-## Current Version : ### v1.10.30 Stable
+## Current stable version : v1.10.30 Stable
 
 ## Introduction
 
@@ -10,12 +10,11 @@ Bus Watch is a mobile app built on top of React Native. Make it easy for student
 
 ## Some notable goals of this app are
 
-- Allow anyone to use the app without creating an account.
 - Provide quick access to bus timings for a hassle-free experience.
+- Allow anyone to use the app without creating an account.
+- Size <= 25mb optimized for installation
 
 ## Currently only for Android!
-
-## iOS users please be patient :)
 
 [![Suggest a feature](https://github.com/dllbn/bswtch/blob/main/bswtch-images/Suggest%20a%20feature.png?raw=true)](https://forms.gle/ULLPnt2Y3CCvzUwH8)
 

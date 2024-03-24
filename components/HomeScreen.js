@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
   },
   LoaderView: {
     flexDirection: 'column',
-    columnGap: 12,
+    rowGap: 10,
     alignItems: 'center',
     justifyContent: 'space-between',
   },
