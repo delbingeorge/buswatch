@@ -2,8 +2,17 @@
 
 # Bus Watch
 
+## Download latest version : v1.10.30
+- [v1.10.30 Stable](https://www.delb.in/)
+
 ## Current stable version : v1.10.30
 - [All versions](#All-versions)
+
+## Table of contents
+- [Introduction](#Introduction)
+- [About Me](#About-Me)
+- [Instalation Guide](#Instalation-Guide)
+
 
 ## Introduction
 
@@ -25,10 +34,14 @@ Bus Watch is a mobile app built on top of React Native. Make it easy for student
 
 ## Don't forget to star our repository! ⭐
 
+## Instalation Guide
+![Instalation Guide](https://github.com/dllbn/bswtch/blob/main/bswtch-images/InstallationGuide.png?raw=true)
+
+
 ## All versions
 To download the files, click on the links below:
 
-- [v1.10.30 Stable](https://example.com/file1.zip)
+- [v1.10.30 Stable](https://www.delb.in/)
 
 ## About Me
 
