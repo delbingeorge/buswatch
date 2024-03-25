@@ -3,7 +3,7 @@
 # Bus Watch
 
 ## Download latest version : v1.10.30
-- [v1.10.30 Stable](https://www.delb.in/)
+- [v1.10.30 Stable](https://bit.ly/buswatch)
 
 ## Current stable version : v1.10.30
 - [All versions](#All-versions)
