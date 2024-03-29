@@ -23,13 +23,6 @@ export default function HomeScreen({navigation}) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const db = firebase.firestore();
-
-  function addDate() {
-    db.collection('bus-routes').add(data);
-    console.log(data);
-  }
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -82,12 +75,6 @@ export default function HomeScreen({navigation}) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity
-        onPress={() => {
-          addDate;
-        }}>
-        <Text style={{color: 'red'}}>hello</Text>
-      </TouchableOpacity>
       <View style={styles.NavView}>
         <Image
           style={styles.NavLogo}
