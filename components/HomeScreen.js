@@ -16,11 +16,19 @@ import {
 import UiColors from '../assets/colors';
 import {useEffect, useState} from 'react';
 import {useNetInfo} from '@react-native-community/netinfo';
+import {firebase} from '@react-native-firebase/firestore';
 
 export default function HomeScreen({navigation}) {
   const netInfo = useNetInfo();
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const db = firebase.firestore();
+
+  function addDate() {
+    db.collection('bus-routes').add(data);
+    console.log(data);
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,6 +46,8 @@ export default function HomeScreen({navigation}) {
     };
     fetchData();
   }, []);
+
+  // console.log(data);
 
   if (isLoading) {
     return (
@@ -72,6 +82,12 @@ export default function HomeScreen({navigation}) {
 
   return (
     <SafeAreaView style={styles.container}>
+      <TouchableOpacity
+        onPress={() => {
+          addDate;
+        }}>
+        <Text style={{color: 'red'}}>hello</Text>
+      </TouchableOpacity>
       <View style={styles.NavView}>
         <Image
           style={styles.NavLogo}
