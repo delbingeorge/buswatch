@@ -16,6 +16,7 @@ import {
 import UiColors from '../assets/colors';
 import {useEffect, useState} from 'react';
 import {useNetInfo} from '@react-native-community/netinfo';
+import {firebase} from '@react-native-firebase/firestore';
 
 export default function HomeScreen({navigation}) {
   const netInfo = useNetInfo();
@@ -38,6 +39,8 @@ export default function HomeScreen({navigation}) {
     };
     fetchData();
   }, []);
+
+  // console.log(data);
 
   if (isLoading) {
     return (
