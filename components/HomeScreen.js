@@ -16,6 +16,7 @@ import {
 import UiColors from '../assets/colors';
 import {useEffect, useState} from 'react';
 import {useNetInfo} from '@react-native-community/netinfo';
+import {firebase} from '@react-native-firebase/firestore';
 
 export default function HomeScreen({navigation}) {
   const netInfo = useNetInfo();
@@ -38,6 +39,8 @@ export default function HomeScreen({navigation}) {
     };
     fetchData();
   }, []);
+
+  // console.log(data);
 
   if (isLoading) {
     return (
@@ -155,13 +158,14 @@ const styles = StyleSheet.create({
     color: UiColors.light,
   },
   container: {
+    alignItems: 'center',
     flex: 1,
     backgroundColor: UiColors.primary,
     paddingHorizontal: 10,
   },
   NavView: {
     flexDirection: 'row',
-    width: '100%',
+    width: '93%',
     height: 40,
     marginVertical: 10,
     justifyContent: 'space-between',
@@ -182,6 +186,7 @@ const styles = StyleSheet.create({
     color: UiColors.dark,
     fontSize: 19.5,
     marginBottom: 10,
+    paddingLeft: 8,
   },
   RouteLogo: {
     width: 35,
@@ -203,11 +208,13 @@ const styles = StyleSheet.create({
   },
   RouteView: {
     flexDirection: 'row',
-    width: Dimensions.get('window').width - 20,
-    padding: 17,
+    width: Dimensions.get('window').width - 30,
+    paddingVertical: 17,
+    paddingHorizontal: 20,
     alignItems: 'center',
     rowGap: 15,
-    marginBottom: 10,
+    marginBottom: 12,
+    // marginHorizontal: 20,
     columnGap: 15,
     borderRadius: 10,
     backgroundColor: UiColors.secondary,

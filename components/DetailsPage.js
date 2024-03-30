@@ -140,8 +140,10 @@ function DetailsPage({route, navigation}) {
 
       <View
         style={{
+          width:"90%",
           flexDirection: 'row',
-          alignItems: 'baseline',
+          alignItems: 'center',
+          alignSelf:'center',
           justifyContent: 'space-between',
         }}>
         <Text style={styles.SubHead}>All buses</Text>
@@ -151,7 +153,7 @@ function DetailsPage({route, navigation}) {
       </View>
 
       <FlatList
-        style={{paddingBottom: 20}}
+        style={{paddingBottom: 20, paddingHorizontal: 12}}
         showsVerticalScrollIndicator={false}
         data={fullValue['BusDetails']}
         renderItem={({item, key}) => (
@@ -301,20 +303,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: UiColors.primary,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
+    // marginHorizontal: 100,
   },
   NavView: {
     flexDirection: 'row',
-    width: Dimensions.get('window').width - 20,
-    height: 20,
+    width: '93%',
+    height: 40,
     marginVertical: 10,
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   SectionHead: {
     fontFamily: 'HelveticaNowDisplay-Bold',
     color: UiColors.dark,
-    fontSize: 20,
+    fontSize: 25,
   },
   NextBusView: {
     borderTopStartRadius: 15,
@@ -336,7 +339,7 @@ const styles = StyleSheet.create({
     fontFamily: 'HelveticaNowDisplay-Bold',
     color: UiColors.dark,
     fontSize: 19,
-    marginTop: 10,
+    marginVertical: 10,
   },
   ResultReturn: {
     fontFamily: 'HelveticaNowDisplay-Bold',
@@ -349,6 +352,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     marginTop: 8,
+    paddingHorizontal: 10,
   },
   GoBackText: {
     color: UiColors.dark,

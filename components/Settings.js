@@ -51,9 +51,10 @@ function Project({navigation}) {
       <View>
         <Text style={styles.SubHead}>Add Contributions</Text>
         <TouchableOpacity
-          onPress={() => {
-            Linking.openURL('https://forms.gle/t7Z2Y2fZWR4t8Ekd6');
-          }}
+          // onPress={() => {
+          //   Linking.openURL('https://forms.gle/t7Z2Y2fZWR4t8Ekd6');
+          // }}
+          onPress={() => navigation.navigate('AddNewBus', {navigation})}
           style={styles.SettingsView}>
           <View
             style={{
