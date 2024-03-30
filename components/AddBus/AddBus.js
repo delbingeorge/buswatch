@@ -10,18 +10,21 @@ import {
 } from 'react-native';
 import UiColors from '../../assets/colors';
 import {useState} from 'react';
+import {firebase} from '@react-native-firebase/firestore';
 
 export default function AddBus({navigation}) {
   const [formData, setFormData] = useState({
-    'bus-name': '',
+    'Name': '',
+    Time: '',
     source: '',
     destination: '',
-    time: '',
     'bus-type': '',
   });
 
+  const db = firebase.firestore();
+
   const handleSubmitForm = () => {
-    console.log(formData.destination);
+    db.collection('busRoutes').add(formData);
   };
 
   return (
