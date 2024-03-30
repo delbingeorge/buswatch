@@ -12,7 +12,6 @@ function App(): React.JSX.Element {
 
   return (
     <>
-      {/* Working on branch ver-alpha */}
       <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
